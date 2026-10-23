@@ -1,0 +1,26 @@
+/* Neutral placeholder styles for mockups. Replaced by the real brand after milestone 00. */
+:root {
+  --bg: #ffffff;
+  --text: #1c2430;
+  --muted: #5b6676;
+  --accent: #2563eb;
+  --accent-text: #ffffff;
+  --card: #f3f5f8;
+  --radius: 10px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+/* One placeholder theme per track. Switch with <body data-track="kids|students|pros"> */
+[data-track="kids"]     { --bg: #fff8e1; --accent: #f97316; --card: #ffe9b0; --radius: 20px; }
+[data-track="students"] { --bg: #f0f7ff; --accent: #7c3aed; --card: #dfeaff; --radius: 14px; }
+[data-track="pros"]     { --bg: #0f1720; --text: #e6edf3; --muted: #9aa7b5; --accent: #38bdf8; --accent-text: #06202e; --card: #18222e; --radius: 6px; }
+
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.5; }
+.wrap { max-width: 960px; margin: 0 auto; padding: 16px; }
+h1, h2, h3 { line-height: 1.2; }
+a { color: var(--accent); }
+.badge { display: inline-block; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; background: var(--card); color: var(--muted); }
+.card { background: var(--card); border-radius: var(--radius); padding: 16px; }
+.btn { display: inline-block; min-height: 44px; padding: 10px 18px; border: 0; border-radius: var(--radius); background: var(--accent); color: var(--accent-text); font: inherit; font-weight: 600; text-decoration: none; cursor: pointer; }
+.list { padding-left: 1.2rem; }
+.mock-note { border: 2px dashed var(--muted); border-radius: var(--radius); padding: 8px 12px; color: var(--muted); font-size: 0.85rem; }
