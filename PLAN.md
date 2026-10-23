@@ -66,7 +66,7 @@ Rules:
 - `main` is the repository's default branch (GitHub's default name; there is no `master`).
 
 ### Plan edits are auto-pushed
-When Claude edits `PLAN.md` or any file in `milestones/`, a hook runs `scripts/sync-plan.ps1`, which commits those files and pushes. If a milestone branch is checked out, the plan edit goes to that branch and reaches `main` when the branch is merged. Edits made by hand (outside Claude) are not auto-pushed.
+When Claude edits `PLAN.md` or any file in `milestones/`, a hook runs `scripts/sync-plan.ps1`, which commits those files and pushes. If a milestone branch is checked out, the plan edit goes to that branch and reaches `main` when the branch is merged. Edits made by hand (outside Claude) are not auto-pushed. Git here is set up to authenticate with the GitHub CLI login (`gh`), repo-local only.
 
 ## Milestone index
 Each milestone: mockup first, your approval, then real code, then your confirmation, then merge.
