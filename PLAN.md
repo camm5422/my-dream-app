@@ -1,4 +1,4 @@
-# SMR Electrical Engineering Education Website: High-Level Plan
+# Littlecore: SMR Electrical Engineering Education Website, High-Level Plan
 
 ## Vision
 A fun, phone-first learning site where kids, teens and young adults learn how electricity, grids and small modular reactors (SMRs) work, taught by a senior electrical engineer in SMRs. The site sells education services: paid sessions, school and group bookings, and hands-on kits. Online learning content is free and acts as the shop window. The owner's bio and credentials build trust with parents and schools.
