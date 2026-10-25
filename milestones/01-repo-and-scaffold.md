@@ -5,9 +5,9 @@
 **Goal:** A deployed Next.js site shell with a working publish flow, starting from a navigation/site-map mockup.
 
 ## Phase A: Mockup
-- [ ] Create branch `milestone/01-repo-and-scaffold` from `main`
-- [ ] Build a clickable HTML site-map mockup: header, navigation, footer and empty placeholder pages for `/`, `/kids`, `/students`, `/pros`, `/learn`, `/play`, `/classroom`, `/book`, `/about`, `/sources`, `/privacy`
-- [ ] Show the mobile menu behaviour (phone width) and projector width
+- [x] Create branch `milestone/01-repo-and-scaffold` from `main`
+- [x] Build a clickable HTML site-map mockup: header, navigation, footer and empty placeholder pages for `/`, `/kids`, `/students`, `/pros`, `/learn`, `/play`, `/classroom`, `/book`, `/about`, `/sources`, `/privacy`
+- [x] Show the mobile menu behaviour (phone width) and projector width
 - [ ] Link from `mockups/index.html`, commit and push
 
 ## Gate 1: Your review of the mockup
