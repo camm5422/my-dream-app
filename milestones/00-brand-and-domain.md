@@ -14,7 +14,7 @@
 - [x] Commit and push the branch
 
 ## Gate 1: Your review of the mockup
-- [ ] You pick one direction (or ask for changes; repeat Phase A as needed)
+- [x] You pick one direction (or ask for changes; repeat Phase A as needed): direction A, Littlecore (picked 25 Oct 2026; Claude to decide remaining details)
 - [ ] You approve in writing: "mockup 00 approved"
 
 ## Phase B: Implementation (after Gate 1)
