@@ -1,0 +1,127 @@
+/* Shared styles for the milestone 00 brand boards. Mockup only; not the final design system.
+   body[data-brand="a|b|c"] picks the brand, [data-track="kids|students|pros"] picks the zone look. */
+:root { --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace; --accent-text: #fff; }
+
+/* ---------- Brand A: Littlecore (sunshine, teal, ink) ---------- */
+body[data-brand="a"] { --font-head: "Baloo 2", "Trebuchet MS", sans-serif; --font-body: "Nunito", system-ui, sans-serif;
+  --bg: #FFF7E0; --text: #1D2B4F; --muted: #5A678A; --accent: #0E8582; --accent2: #FFC531; --card: #fff; --radius: 18px; }
+body[data-brand="a"] [data-track="kids"]     { --bg: #FFF1C2; --accent: #E5483A; --radius: 28px; }
+body[data-brand="a"] [data-track="students"] { --bg: #E3F5F4; --accent: #0E8582; --radius: 16px; }
+body[data-brand="a"] [data-track="pros"]     { --bg: #10222B; --text: #E8F3F2; --muted: #8FB0B3; --accent: #FFC531; --accent-text: #1D2B4F; --card: #173340; --radius: 8px; }
+
+/* ---------- Brand B: Kilocore (navy, sky, amber) ---------- */
+body[data-brand="b"] { --font-head: "Space Grotesk", system-ui, sans-serif; --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --bg: #F4F8FB; --text: #0B1620; --muted: #52606E; --accent: #0369A1; --accent2: #F5A524; --card: #fff; --radius: 10px; }
+body[data-brand="b"] [data-track="kids"]     { --bg: #E6F5FF; --radius: 24px; }
+body[data-brand="b"] [data-track="students"] { --bg: #12263A; --text: #EAF4FF; --muted: #9DB6CC; --accent: #38BDF8; --accent-text: #06202E; --card: #1B3550; --radius: 14px; }
+body[data-brand="b"] [data-track="pros"]     { --bg: #0B1620; --text: #E6EDF3; --muted: #9AA7B5; --accent: #38BDF8; --accent-text: #06202E; --card: #121F2C; --radius: 4px; }
+
+/* ---------- Brand C: Amp & Atom (violet, lime, orange) ---------- */
+body[data-brand="c"] { --font-head: "Fredoka", "Trebuchet MS", sans-serif; --font-body: "Lexend", system-ui, sans-serif;
+  --bg: #F7F5FF; --text: #151133; --muted: #5C5780; --accent: #5B2EE5; --accent2: #B6F03C; --card: #fff; --radius: 18px; }
+body[data-brand="c"] [data-track="kids"]     { --bg: #EFE9FF; --radius: 30px; }
+body[data-brand="c"] [data-track="students"] { --bg: #1B1445; --text: #F2EEFF; --muted: #B3A9E6; --accent: #B6F03C; --accent-text: #151133; --card: #2A2066; --radius: 16px; }
+body[data-brand="c"] [data-track="pros"]     { --bg: #0E0B24; --text: #E9E6F7; --muted: #9A93C4; --accent: #A78BFA; --accent-text: #0E0B24; --card: #17133A; --radius: 4px; }
+
+/* ---------- Neutral: overview, compare and mascot pages ---------- */
+body[data-brand="n"] { --font-head: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bg: #fff; --text: #1c2430; --muted: #5b6676; --accent: #2563eb; --accent2: #e2e8f0; --card: #f3f5f8; --radius: 12px; }
+
+/* ---------- Layout ---------- */
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.55; }
+[data-track] { background: var(--bg); color: var(--text); }
+.wrap { max-width: 1000px; margin: 0 auto; padding: 16px; }
+h1, h2, h3 { font-family: var(--font-head); line-height: 1.15; margin: 0 0 .5em; }
+h2 { font-size: 1.4rem; margin-top: 1.6em; }
+a { color: var(--accent); }
+img { max-width: 100%; }
+.topnav { font-size: .85rem; color: var(--muted); }
+
+/* Board header */
+.brandhead { display: flex; align-items: center; gap: 14px; margin: 12px 0 4px; }
+.brandhead img { width: 64px; height: 64px; flex: none; }
+.wordmark { font-family: var(--font-head); font-size: 2.2rem; font-weight: 700; line-height: 1; letter-spacing: -.01em; }
+.tagline { color: var(--muted); margin: 0 0 8px; }
+.concept { max-width: 60ch; }
+
+/* Palette, logo tiles, type */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+.swatch { border-radius: 12px; overflow: hidden; border: 1px solid #0002; background: #fff; color: #222; }
+.swatch i { display: block; height: 56px; }
+.swatch span { display: block; padding: 6px 8px; font-size: .78rem; line-height: 1.3; }
+.tiles { display: flex; gap: 10px; flex-wrap: wrap; }
+.tile { width: 132px; height: 132px; border-radius: 16px; display: grid; place-items: center; border: 1px solid #0002; }
+.tile img { width: 84px; height: 84px; }
+.tile.icon { border-radius: 30px; }
+.tile.icon img { width: 76px; height: 76px; }
+.specimen { background: var(--card); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid #0002; }
+.specimen small { color: var(--muted); }
+.specimen .big { font-size: 1.7rem; line-height: 1.2; }
+.voice { display: grid; gap: 10px; }
+.voice blockquote { margin: 0; padding: 10px 14px; border-radius: 12px; background: var(--card); border-left: 6px solid var(--accent2); border: 1px solid #0002; border-left: 6px solid var(--accent2); }
+.voice b { display: block; font-size: .75rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+
+/* Zone heroes */
+.hero { padding: 24px 16px 36px; }
+.hero-inner { max-width: 1000px; margin: 0 auto; display: grid; gap: 22px; align-items: center; }
+@media (min-width: 720px) { .hero-inner { grid-template-columns: 1.2fr 1fr; } }
+.mock-label { max-width: 1000px; margin: 0 auto 10px; font-size: .75rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.zone { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--accent2); color: #151515; margin-bottom: 10px; }
+.hero h1 { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+.hero p { margin: 0 0 14px; max-width: 46ch; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn { display: inline-block; min-height: 48px; padding: 11px 20px; border: 2px solid var(--accent); border-radius: var(--radius); background: var(--accent); color: var(--accent-text); font: inherit; font-weight: 700; text-decoration: none; }
+.btn.alt { background: transparent; color: var(--text); border-color: var(--muted); }
+.disclaimer { font-size: .75rem; color: var(--muted); margin-top: 14px; }
+.mascot { width: min(280px, 80%); justify-self: center; }
+@media (prefers-reduced-motion: no-preference) { .mascot { animation: bob 3s ease-in-out infinite; } }
+@keyframes bob { 50% { transform: translateY(-8px); } }
+
+/* Students: quest card */
+.card { background: var(--card); border-radius: var(--radius); padding: 16px; border: 1px solid #0002; }
+.quest h3 { font-size: 1.15rem; }
+.progress { height: 14px; border-radius: 999px; background: #0003; overflow: hidden; margin: 8px 0 4px; }
+.progress i { display: block; height: 100%; width: 40%; background: var(--accent2); }
+.xp { display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted); }
+.badges { display: flex; gap: 8px; margin-top: 12px; }
+.badges span { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; background: var(--accent2); color: #151515; }
+.badges span.off { background: transparent; border: 2px dashed var(--muted); color: var(--muted); }
+
+/* Pros: control-room panel */
+.panel { background: var(--card); border: 1px solid #ffffff22; border-radius: var(--radius); padding: 14px; }
+.panel h3 { font-family: var(--font-mono); font-size: .8rem; font-weight: 500; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.readouts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.readout { border: 1px solid #ffffff1f; border-radius: var(--radius); padding: 8px 10px; }
+.readout small { display: block; font-family: var(--font-mono); font-size: .7rem; color: var(--muted); }
+.readout b { font-family: var(--font-mono); font-size: 1.3rem; font-weight: 500; color: var(--accent); }
+.readout.wide { grid-column: 1 / -1; }
+
+/* Compare page */
+.cmp-controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+.cmp-controls a { padding: 8px 14px; border-radius: 999px; border: 2px solid var(--accent); text-decoration: none; font-weight: 700; }
+.cmp-controls a.on { background: var(--accent); color: #fff; }
+.frames { display: flex; gap: 18px; overflow-x: auto; padding-bottom: 12px; }
+.frame { flex: none; width: 390px; }
+.frame h2 { font-size: 1rem; margin: 0 0 6px; }
+.frame iframe { width: 390px; height: 760px; border: 8px solid #1d2230; border-radius: 28px; background: #fff; }
+
+/* Overview page */
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #0002; vertical-align: top; }
+.scroll { overflow-x: auto; }
+.pick { font-weight: 700; color: var(--accent); }
+.dirs { display: grid; gap: 14px; }
+@media (min-width: 720px) { .dirs { grid-template-columns: repeat(3, 1fr); } }
+.dir img { width: 56px; height: 56px; }
+.mascots { display: grid; gap: 18px; }
+@media (min-width: 720px) { .mascots { grid-template-columns: repeat(3, 1fr); } }
+.mascots .card { text-align: center; }
+.mascots img { max-height: 260px; }
+
+/* Solo mode: ?track=kids|students|pros shows one hero only (used by the compare page) */
+html[data-solo] .board-only { display: none; }
+html[data-solo] .hero { min-height: 100vh; }
+html[data-solo="kids"] .hero:not([data-track="kids"]),
+html[data-solo="students"] .hero:not([data-track="students"]),
+html[data-solo="pros"] .hero:not([data-track="pros"]) { display: none; }
