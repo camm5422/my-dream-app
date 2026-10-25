@@ -28,9 +28,9 @@
 - [x] Update PLAN.md open questions and `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
-- [ ] You confirm the brand assets and decisions are correct
-- [ ] Pull request merged into `main` (only after your go-ahead)
-- [ ] Tick this milestone in the PLAN.md index
+- [x] You confirm the brand assets and decisions are correct (25 Oct 2026: owner said "merge"; domain, trademark and base country carried over as open items in PLAN.md)
+- [x] Pull request merged into `main` (only after your go-ahead)
+- [x] Tick this milestone in the PLAN.md index
 
 ## Done when
 Name, domain, logo, palette, fonts and voice are chosen, written down, and merged.
