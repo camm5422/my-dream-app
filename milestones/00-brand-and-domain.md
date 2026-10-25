@@ -11,7 +11,7 @@
 - [x] Add a side-by-side comparison page with a phone-width view
 - [x] Add a mascot sketch for the Kids zone
 - [x] Link the mockups from `mockups/index.html`
-- [ ] Commit and push the branch
+- [x] Commit and push the branch
 
 ## Gate 1: Your review of the mockup
 - [ ] You pick one direction (or ask for changes; repeat Phase A as needed)
