@@ -15,17 +15,17 @@
 
 ## Gate 1: Your review of the mockup
 - [x] You pick one direction (or ask for changes; repeat Phase A as needed): direction A, Littlecore (picked 25 Oct 2026; Claude to decide remaining details)
-- [ ] You approve in writing: "mockup 00 approved"
+- [x] You approve in writing: "mockup 00 approved" (25 Oct 2026: owner picked A and said "proceed to phase B")
 
 ## Phase B: Implementation (after Gate 1)
-- [ ] Check name availability: domain, social handles, trademark search in your base country
-- [ ] You register the domain (Claude can advise on registrars)
-- [ ] Decide base country / business entity (affects payments and privacy law)
-- [ ] Export final logo files (SVG, PNG) into `demo/public/brand/`
-- [ ] Write design tokens (colours, fonts, per-track) as `demo/src/styles/tokens.css`
-- [ ] Write a short brand voice guide per track in `demo/content/brand.md`
-- [ ] Update `mockups/assets/base.css` to the chosen palette so later mockups look on-brand
-- [ ] Update PLAN.md open questions and `demo/STATUS.md`
+- [ ] Check name availability: domain, social handles, trademark search in your base country. Partly done by Claude: rough DNS check and a web search found no clash. Still to do by you: confirm at a registrar, check social handles, trademark register search
+- [ ] You register the domain (Claude can advise on registrars). Open: `littlecore.com` is taken; `.org`, `.co` and `.io` showed no DNS records
+- [ ] Decide base country / business entity (affects payments and privacy law). Open, owner decision
+- [x] Export final logo files (SVG, PNG) into `demo/public/brand/`
+- [x] Write design tokens (colours, fonts, per-track) as `demo/src/styles/tokens.css` (plus self-hosted fonts in `fonts.css` and `demo/public/fonts/`)
+- [x] Write a short brand voice guide per track in `demo/content/brand.md`
+- [x] Update `mockups/assets/base.css` to the chosen palette so later mockups look on-brand
+- [x] Update PLAN.md open questions and `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
 - [ ] You confirm the brand assets and decisions are correct
