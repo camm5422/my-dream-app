@@ -11,7 +11,7 @@ A phone-first learning website about electricity, grids and small modular reacto
 - Layout:
   - `PLAN.md`: vision, workflow, milestone index (edit this to track progress)
   - `milestones/NN-slug.md`: one checklist per milestone (00-18)
-  - `mockups/`: static HTML mockups, one folder per milestone, plus `assets/base.css` (neutral placeholder styles)
+  - `mockups/`: static HTML mockups, one folder per milestone, plus `assets/base.css` (Littlecore look, imports the real tokens and fonts from `demo/src/styles/`)
   - `demo/`: the real codebase, currently an empty scaffold; `demo/STATUS.md` records what each milestone has added
   - `scripts/sync-plan.ps1`: auto-push helper used by the hook
 
