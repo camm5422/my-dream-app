@@ -40,7 +40,7 @@ Industry clients are a possible later audience, not part of launch.
 - Content stored as Markdown/JSON in the repo. Cameron sends content; Claude formats it into the site.
 - Classroom mode uses short room codes and nicknames only, no personal data. Needs a small realtime service on a free tier.
 - Cost target: zero or near-zero hosting.
-- No domain and no brand kit yet. Mockups use a neutral placeholder look until milestone 00 is approved.
+- Brand: **Littlecore** ("Big power from a little core."), chosen in milestone 00. Tokens in `demo/src/styles/tokens.css`, fonts self-hosted, voice guide in `demo/content/brand.md`. Domain not yet registered.
 
 ## Repository layout
 ```
