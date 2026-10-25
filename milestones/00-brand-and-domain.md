@@ -5,12 +5,12 @@
 **Goal:** Settle the name, domain and visual identity so later work has a stable base. Today there is no domain and no brand kit.
 
 ## Phase A: Mockup
-- [ ] Create branch `milestone/00-brand-and-domain` from `main`
-- [ ] Brainstorm 8-10 candidate names (easy to say for kids and non-native English speakers)
-- [ ] Build 3 brand-board mockups (HTML), each with name, logo sketch (SVG), palette, fonts, and a mini home-page hero in each track look (Kids, Students, Pros)
-- [ ] Add a side-by-side comparison page with a phone-width view
-- [ ] Add a mascot sketch for the Kids zone
-- [ ] Link the mockups from `mockups/index.html`
+- [x] Create branch `milestone/00-brand-and-domain` from `main`
+- [x] Brainstorm 8-10 candidate names (easy to say for kids and non-native English speakers)
+- [x] Build 3 brand-board mockups (HTML), each with name, logo sketch (SVG), palette, fonts, and a mini home-page hero in each track look (Kids, Students, Pros)
+- [x] Add a side-by-side comparison page with a phone-width view
+- [x] Add a mascot sketch for the Kids zone
+- [x] Link the mockups from `mockups/index.html`
 - [ ] Commit and push the branch
 
 ## Gate 1: Your review of the mockup
