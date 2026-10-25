@@ -96,7 +96,7 @@ Each milestone: mockup first, your approval, then real code, then your confirmat
 Suggested first public launch: milestones 00-10. Classroom mode and later content follow.
 
 ## Open questions
-- Brand name, domain, logo and colours (milestone 00 mockups will help decide).
+- Domain for Littlecore: register `.org`, `.co` or `.io` (`.com` is taken), after a registrar check. Also check social handles and search the trademark register before printing anything.
 - Base country: affects business registration, payment methods and child-data law (e.g. PDPA in Singapore/Malaysia, APPI in Japan, PIPA in Korea).
 - Whether children's nicknames in classroom mode need parental consent in target countries.
 - Local payment methods per target country.
