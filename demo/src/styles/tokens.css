@@ -1,0 +1,74 @@
+/* Littlecore design tokens (milestone 00). Single source of truth for colour, type and shape.
+   Use the semantic names (--bg, --text, --accent ...) in components; the brand colours below feed them.
+   Zone looks: set data-track="kids|students|pros" on a wrapper (or <body>). No attribute = brand default. */
+
+:root {
+  /* Brand colours */
+  --lc-sunshine: #FFC531;   /* highlights, badges, zone pills */
+  --lc-teal: #12A4A0;       /* logo and large graphics only */
+  --lc-teal-deep: #0B7673;  /* buttons and links (5.1:1 on cream, 5.5:1 with white text) */
+  --lc-ink: #1D2B4F;        /* text and outlines */
+  --lc-cream: #FFF7E0;      /* default page background */
+  --lc-coral: #FF6B5B;      /* decoration only */
+  --lc-coral-deep: #C93A2D; /* Kids zone buttons (5.1:1 with white text) */
+  --lc-night: #10222B;      /* Pros zone background */
+  --lc-night-card: #173340; /* Pros zone cards */
+
+  /* Fonts (see fonts.css) */
+  --font-head: "Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font: var(--font-body); /* alias used by the mockup base.css */
+
+  /* Type scale */
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.25rem;
+  --text-xl: clamp(1.5rem, 4vw, 2rem);
+  --text-hero: clamp(1.8rem, 6vw, 2.8rem);
+
+  /* Spacing and touch targets */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px;
+  --tap-min: 48px;
+
+  /* Semantic defaults (brand default look) */
+  --bg: var(--lc-cream);
+  --text: var(--lc-ink);
+  --muted: #5A678A;         /* 5.0:1 or better on every zone background */
+  --accent: var(--lc-teal-deep);
+  --accent-text: #ffffff;
+  --accent2: var(--lc-sunshine);
+  --accent2-text: #151515;
+  --card: #ffffff;
+  --radius: 18px;
+}
+
+/* Kids zone, 8-11: warm, rounded, playful */
+[data-track="kids"] {
+  --bg: #FFF1C2;
+  --accent: var(--lc-coral-deep);
+  --radius: 28px;
+}
+
+/* Students zone, 12-15: cooler, game-like */
+[data-track="students"] {
+  --bg: #E3F5F4;
+  --accent: var(--lc-teal-deep);
+  --radius: 16px;
+}
+
+/* Pros zone, 16+: dark, control-room */
+[data-track="pros"] {
+  --bg: var(--lc-night);
+  --text: #E8F3F2;
+  --muted: #8FB0B3;
+  --accent: var(--lc-sunshine);
+  --accent-text: var(--lc-ink);
+  --card: var(--lc-night-card);
+  --radius: 8px;
+}
+
+/* Respect reduced-motion preferences for the mascot and any future animation */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

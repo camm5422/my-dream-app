@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare brand directions</title>
+  <link rel="stylesheet" href="brand.css">
+</head>
+<body data-brand="n">
+  <main class="wrap" style="max-width:1400px">
+    <p class="topnav"><a href="index.html">&larr; Milestone 00 overview</a></p>
+    <h1>Compare the three directions</h1>
+    <p>Each frame is a 390px-wide phone. Pick a zone to see all three brands side by side, then scroll sideways. Scroll inside a frame to see the whole board.</p>
+    <nav class="cmp-controls" id="controls">
+      <a href="?track=kids">Kids</a>
+      <a href="?track=students">Students</a>
+      <a href="?track=pros">Pros</a>
+      <a href="?">Full boards</a>
+    </nav>
+    <div class="frames" id="frames">
+      <div class="frame"><h2>A &middot; Littlecore</h2><iframe data-src="board-a.html" title="Littlecore"></iframe></div>
+      <div class="frame"><h2>B &middot; Kilocore</h2><iframe data-src="board-b.html" title="Kilocore"></iframe></div>
+      <div class="frame"><h2>C &middot; Amp &amp; Atom</h2><iframe data-src="board-c.html" title="Amp and Atom"></iframe></div>
+    </div>
+  </main>
+  <script>
+    var track = new URLSearchParams(location.search).get('track') || '';
+    document.querySelectorAll('iframe').forEach(function (f) {
+      f.src = f.dataset.src + (track ? '?track=' + track : '');
+    });
+    document.querySelectorAll('#controls a').forEach(function (a) {
+      var t = new URLSearchParams(a.search).get('track') || '';
+      if (t === track) a.classList.add('on');
+    });
+  </script>
+  <noscript><p>Turn on JavaScript to load the frames, or open the boards directly from the overview page.</p></noscript>
+</body>
+</html>

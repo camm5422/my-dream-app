@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230" role="img" aria-label="Cori, a friendly reactor-dome character in a hard hat">
+  <g stroke="#1D2B4F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M42 150q-22 2-28 24" fill="none"/>
+    <path d="M158 150q22 2 28 24" fill="none"/>
+    <ellipse cx="74" cy="218" rx="18" ry="7" fill="#1D2B4F"/>
+    <ellipse cx="126" cy="218" rx="18" ry="7" fill="#1D2B4F"/>
+    <path d="M40 206V100a60 60 0 0 1 120 0v106a10 10 0 0 1-10 10H50a10 10 0 0 1-10-10Z" fill="#12A4A0"/>
+    <path d="M54 66Q100 14 146 66Z" fill="#FFC531"/>
+    <rect x="46" y="64" width="108" height="12" rx="6" fill="#FFC531"/>
+    <circle cx="78" cy="106" r="13" fill="#fff"/>
+    <circle cx="122" cy="106" r="13" fill="#fff"/>
+    <path d="M84 132Q100 148 116 132" fill="none"/>
+    <circle cx="100" cy="174" r="22" fill="#FFC531"/>
+  </g>
+  <circle cx="81" cy="108" r="5" fill="#1D2B4F"/>
+  <circle cx="125" cy="108" r="5" fill="#1D2B4F"/>
+  <path d="M104 159 90 177h9l-3 14 15-19h-9Z" fill="#1D2B4F"/>
+</svg>

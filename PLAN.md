@@ -1,4 +1,4 @@
-# SMR Electrical Engineering Education Website: High-Level Plan
+# Littlecore: SMR Electrical Engineering Education Website, High-Level Plan
 
 ## Vision
 A fun, phone-first learning site where kids, teens and young adults learn how electricity, grids and small modular reactors (SMRs) work, taught by a senior electrical engineer in SMRs. The site sells education services: paid sessions, school and group bookings, and hands-on kits. Online learning content is free and acts as the shop window. The owner's bio and credentials build trust with parents and schools.
@@ -40,7 +40,7 @@ Industry clients are a possible later audience, not part of launch.
 - Content stored as Markdown/JSON in the repo. Cameron sends content; Claude formats it into the site.
 - Classroom mode uses short room codes and nicknames only, no personal data. Needs a small realtime service on a free tier.
 - Cost target: zero or near-zero hosting.
-- No domain and no brand kit yet. Mockups use a neutral placeholder look until milestone 00 is approved.
+- Brand: **Littlecore** ("Big power from a little core."), chosen in milestone 00. Tokens in `demo/src/styles/tokens.css`, fonts self-hosted, voice guide in `demo/content/brand.md`. Domain not yet registered.
 
 ## Repository layout
 ```
@@ -73,7 +73,7 @@ Each milestone: mockup first, your approval, then real code, then your confirmat
 
 | # | Milestone | Mockup | Approved | Implemented | Merged |
 |---|---|---|---|---|---|
-| 00 | [Brand and domain](milestones/00-brand-and-domain.md) | [ ] | [ ] | [ ] | [ ] |
+| 00 | [Brand and domain](milestones/00-brand-and-domain.md) | [x] | [x] | [x] | [x] |
 | 01 | [Repo and scaffold](milestones/01-repo-and-scaffold.md) | [ ] | [ ] | [ ] | [ ] |
 | 02 | [Design system](milestones/02-design-system.md) | [ ] | [ ] | [ ] | [ ] |
 | 03 | [Landing and bio](milestones/03-landing-and-bio.md) | [ ] | [ ] | [ ] | [ ] |
@@ -96,7 +96,7 @@ Each milestone: mockup first, your approval, then real code, then your confirmat
 Suggested first public launch: milestones 00-10. Classroom mode and later content follow.
 
 ## Open questions
-- Brand name, domain, logo and colours (milestone 00 mockups will help decide).
+- Domain for Littlecore: register `.org`, `.co` or `.io` (`.com` is taken), after a registrar check. Also check social handles and search the trademark register before printing anything.
 - Base country: affects business registration, payment methods and child-data law (e.g. PDPA in Singapore/Malaysia, APPI in Japan, PIPA in Korea).
 - Whether children's nicknames in classroom mode need parental consent in target countries.
 - Local payment methods per target country.

@@ -11,7 +11,7 @@ A phone-first learning website about electricity, grids and small modular reacto
 - Layout:
   - `PLAN.md`: vision, workflow, milestone index (edit this to track progress)
   - `milestones/NN-slug.md`: one checklist per milestone (00-18)
-  - `mockups/`: static HTML mockups, one folder per milestone, plus `assets/base.css` (neutral placeholder styles)
+  - `mockups/`: static HTML mockups, one folder per milestone, plus `assets/base.css` (Littlecore look, imports the real tokens and fonts from `demo/src/styles/`)
   - `demo/`: the real codebase, currently an empty scaffold; `demo/STATUS.md` records what each milestone has added
   - `scripts/sync-plan.ps1`: auto-push helper used by the hook
 
@@ -25,7 +25,8 @@ A phone-first learning website about electricity, grids and small modular reacto
 - **Interactives:** simulators tiered by track (illustrative, simplified physics, deeper), quizzes/games with badges, drag-and-drop diagrams, AR/3D later. In person: classroom group mode joined by QR code (nicknames only), projector/teacher view, printed QR cards, hands-on kits.
 - **Tech:** Next.js (React) + TypeScript, hosted on Vercel (Netlify alternative), free tier. Designed for mid-range Android phones first, plus a projector view. Not yet scaffolded.
 - **Owner does not code.** They send content (notes in any form) and Claude formats it into the site. Keep things simple to maintain.
-- **Not decided yet:** brand name, domain, logo, colours, base country (affects payments and child-privacy law such as PDPA, APPI, PIPA), parental-consent needs for classroom nicknames, local payment methods, kit design. No domain and no brand kit exist; mockups use a neutral placeholder look until milestone 00 is approved.
+- **Brand (decided in milestone 00):** **Littlecore**, tagline "Big power from a little core." Mascot Cori (hard-hatted reactor dome). Colours, fonts and per-zone themes are in `demo/src/styles/tokens.css` and `fonts.css` (fonts self-hosted in `demo/public/fonts/`, because Google Fonts can be blocked in China). Logo files in `demo/public/brand/`. Voice guide in `demo/content/brand.md`. Use the semantic tokens (`--bg`, `--accent`...), never raw hex, and keep buttons at least 48px tall. UI colours were contrast-checked to WCAG AA: do not put `#12A4A0` teal or `#FF6B5B` coral behind white text (use `--lc-teal-deep` and `--lc-coral-deep`).
+- **Not decided yet:** domain (`littlecore.com` is taken; `.org`/`.co`/`.io` showed no DNS records on 25 Oct 2026 but are not registered or confirmed; trademark and social handles unchecked), base country (affects payments and child-privacy law such as PDPA, APPI, PIPA), parental-consent needs for classroom nicknames, local payment methods, kit design.
 
 ## Workflow rules (mandatory)
 1. Each milestone is built on its own branch `milestone/NN-slug`, created from `main`.
@@ -36,7 +37,7 @@ A phone-first learning website about electricity, grids and small modular reacto
 6. **Merge** to `main` through a pull request only after the owner explicitly says so. Never merge on your own.
 7. Tick the checklist in the milestone file and the index table in `PLAN.md`.
 
-Next step: milestone 00 (brand and domain). Create `milestone/00-brand-and-domain` and build three brand-board mockups for the owner to compare.
+Status: milestone 00 (brand and domain) is done and merged to `main`. Next step: milestone 01 (repo and scaffold). Create `milestone/01-repo-and-scaffold` from `main` and build its mockup first. Carried-over open items from 00 (owner's to do): register a domain, trademark and social-handle check, decide base country.
 
 ## Auto-push of plan docs
 A Claude Code `PostToolUse` hook (in `C:\Users\cmcke\OneDrive\CameronEngineering\.claude\settings.json`, outside the repo) runs `scripts/sync-plan.ps1` after Edit/Write. The script commits and pushes the current branch when `PLAN.md`, `CLAUDE.md` or `milestones/*.md` changed. Notes:
