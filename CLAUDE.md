@@ -37,7 +37,7 @@ A phone-first learning website about electricity, grids and small modular reacto
 6. **Merge** to `main` through a pull request only after the owner explicitly says so. Never merge on your own.
 7. Tick the checklist in the milestone file and the index table in `PLAN.md`.
 
-Next step: milestone 00 (brand and domain). Create `milestone/00-brand-and-domain` and build three brand-board mockups for the owner to compare.
+Status: milestone 00 (brand and domain) has its mockup approved and is implemented on branch `milestone/00-brand-and-domain`; it merges to `main` only after the owner's go-ahead. Next step: milestone 01 (repo and scaffold). Create `milestone/01-repo-and-scaffold` from `main` once 00 is merged (or ask the owner if 00 is still open), then build its mockup first.
 
 ## Auto-push of plan docs
 A Claude Code `PostToolUse` hook (in `C:\Users\cmcke\OneDrive\CameronEngineering\.claude\settings.json`, outside the repo) runs `scripts/sync-plan.ps1` after Edit/Write. The script commits and pushes the current branch when `PLAN.md`, `CLAUDE.md` or `milestones/*.md` changed. Notes:
