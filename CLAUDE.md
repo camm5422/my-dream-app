@@ -45,6 +45,14 @@ A Claude Code `PostToolUse` hook (in `C:\Users\cmcke\OneDrive\CameronEngineering
 - On a milestone branch the plan edit goes to that branch and reaches `main` at merge.
 - If a session starts with the repo as its working directory, the hook may not load; push plan edits manually in that case.
 
+## Live prompt log (owner's "how it started" Word document)
+The owner keeps a live Word document of every prompt they send, so they can see how the project began and evolved. It sits outside the repo (not on any branch) in `C:\Users\cmcke\OneDrive\CameronEngineering\`:
+- `How-my-dream-app-started.docx`: the document (if it is open in Word, the hook writes `How-my-dream-app-started-LATEST.docx` instead).
+- `prompt-log/prompt-log.json`: the data. Each entry has `n`, `date`, `title`, `when`, `text` (the prompt verbatim) and `note` ("What it did").
+- `prompt-log/log-prompt.ps1`: a `UserPromptSubmit` hook (same `.claude/settings.json` as above) that appends every new prompt and rebuilds the document by running `prompt-log/build-prompt-doc.ps1`.
+
+For sessions: do not edit the `text` of an entry. When asked, or at the end of a milestone step, fill in the blank `title` and `note` fields of recent entries (one or two plain sentences on what the prompt led to), then run `powershell -NoProfile -ExecutionPolicy Bypass -File prompt-log\build-prompt-doc.ps1`. The static sections of the document (method, where things live, answers to the clarifying questions) are in `build-prompt-doc.ps1`; update them there when the workflow changes. The log is not committed to git.
+
 ## Git and environment notes
 - Git is at `C:\Program Files\Git\cmd` and the GitHub CLI at `C:\Program Files\GitHub CLI\gh.exe`; neither is on the default PATH, so add them in the shell session.
 - This repo's git config is local only: user `camm5422` with the owner's email, and credentials come from `gh auth git-credential` (the empty `credential.helper` entry first is deliberate: it stops Git Credential Manager from hanging on a prompt).
