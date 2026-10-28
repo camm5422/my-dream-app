@@ -8,10 +8,10 @@
 - [x] Create branch `milestone/01-repo-and-scaffold` from `main`
 - [x] Build a clickable HTML site-map mockup: header, navigation, footer and empty placeholder pages for `/`, `/kids`, `/students`, `/pros`, `/learn`, `/play`, `/classroom`, `/book`, `/about`, `/sources`, `/privacy`
 - [x] Show the mobile menu behaviour (phone width) and projector width
-- [ ] Link from `mockups/index.html`, commit and push
+- [x] Link from `mockups/index.html`, commit and push
 
 ## Gate 1: Your review of the mockup
-- [ ] You approve the site map and navigation (or request changes)
+- [x] You approve the site map and navigation (or request changes)
 
 ## Phase B: Implementation (after Gate 1)
 - [ ] Scaffold Next.js with TypeScript and the App Router inside `demo/`
