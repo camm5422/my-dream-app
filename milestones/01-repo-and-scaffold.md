@@ -20,8 +20,8 @@
 - [x] Write `demo/README.md` section on how to run and publish
 - [ ] Connect the repo to Vercel (free tier), root directory `demo/`; confirm every pushed branch gets a preview URL
 - [ ] Connect the custom domain (when available)
-- [ ] Confirm no secrets are committed
-- [ ] Update `demo/STATUS.md`
+- [x] Confirm no secrets are committed
+- [x] Update `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
 - [ ] You open the preview URL on a phone and confirm it works
