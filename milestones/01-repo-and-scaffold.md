@@ -14,10 +14,10 @@
 - [x] You approve the site map and navigation (or request changes)
 
 ## Phase B: Implementation (after Gate 1)
-- [ ] Scaffold Next.js with TypeScript and the App Router inside `demo/`
-- [ ] Add linting, formatting and a type-check script
-- [ ] Create the placeholder routes from the approved site map
-- [ ] Write `demo/README.md` section on how to run and publish
+- [x] Scaffold Next.js with TypeScript and the App Router inside `demo/`
+- [x] Add linting, formatting and a type-check script
+- [x] Create the placeholder routes from the approved site map
+- [x] Write `demo/README.md` section on how to run and publish
 - [ ] Connect the repo to Vercel (free tier), root directory `demo/`; confirm every pushed branch gets a preview URL
 - [ ] Connect the custom domain (when available)
 - [ ] Confirm no secrets are committed
