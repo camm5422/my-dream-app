@@ -1,0 +1,384 @@
+/* Site shell and shared page styles (milestone 01).
+   Colours, type and shapes all come from tokens.css; set data-track on .shell for a zone look. */
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--lc-cream);
+  color: var(--lc-ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-head);
+  line-height: 1.2;
+}
+a {
+  color: var(--accent);
+}
+
+.shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* Buttons and cards */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--tap-min);
+  padding: 0 18px;
+  line-height: 1;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-text);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn.secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+/* Header and navigation */
+.site-header {
+  background: var(--card);
+  border-bottom: 3px solid var(--accent2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.bar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--text);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.75rem;
+  line-height: 1;
+  min-height: 56px;
+}
+.brand img {
+  width: 46px;
+  height: 46px;
+}
+
+/* Phone and tablet: a grid icon opens a full-width list */
+.menu-btn {
+  margin-left: auto;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--text);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+.menu-btn svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+.menu-btn .i-close {
+  display: none;
+}
+.menu-btn[aria-expanded="true"] .i-grid {
+  display: none;
+}
+.menu-btn[aria-expanded="true"] .i-close {
+  display: block;
+}
+nav {
+  display: none;
+}
+nav.open {
+  display: block;
+  border-top: 1px solid var(--muted);
+}
+nav > ul {
+  list-style: none;
+  margin: 0 auto;
+  padding: 8px 16px 16px;
+  max-width: 1100px;
+}
+nav ul ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* Menu text is smaller than the logo and uses the logo's font (Baloo 2) so the two read as one family */
+nav a,
+.group-btn {
+  font-family: var(--font-head);
+}
+nav a {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding: 0 12px;
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+}
+nav a[aria-current="page"] {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+.group-btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0 0;
+  padding: 0 12px;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  cursor: default;
+}
+.group-btn .caret {
+  display: none;
+}
+nav .about-link {
+  margin-top: 8px;
+}
+nav a.cta {
+  background: var(--accent2);
+  color: var(--accent2-text);
+  margin-top: 8px;
+  justify-content: center;
+}
+
+/* Desktop: logo and menu share one row; categories are dropdowns and Book a session is a header button */
+@media (min-width: 1000px) {
+  .site-header {
+    display: flex;
+    align-items: center;
+    padding-inline: max(16px, calc((100% - 1100px) / 2));
+  }
+  .bar {
+    max-width: none;
+    margin: 0;
+    padding: 8px 0;
+  }
+  .menu-btn {
+    display: none;
+  }
+  nav,
+  nav.open {
+    display: block;
+    margin-left: auto;
+    border: 0;
+  }
+  nav > ul {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 0;
+    margin: 0;
+  }
+  nav a {
+    padding: 0 14px;
+  }
+  .has-menu {
+    position: relative;
+  }
+  .group-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: auto;
+    min-height: var(--tap-min);
+    margin: 0;
+    padding: 0 14px;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+  }
+  .group-btn:hover,
+  .group-btn[aria-expanded="true"] {
+    background: var(--bg);
+  }
+  .group-btn .caret {
+    display: inline;
+    font-size: 0.7rem;
+  }
+  .has-menu > ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 200px;
+    padding: 8px;
+    background: var(--card);
+    border: 1px solid var(--muted);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
+  .has-menu.open > ul {
+    display: block;
+  }
+  nav .about-link {
+    margin-top: 0;
+  }
+  nav a.cta {
+    margin-top: 0;
+    margin-left: 8px;
+    padding: 0 20px;
+  }
+}
+
+/* Page body */
+main {
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+.route {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+.hero {
+  padding: 16px 0 8px;
+}
+.hero h1 {
+  font-size: var(--text-hero);
+  margin: 4px 0 8px;
+}
+.hero .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+  margin: 16px 0;
+}
+@media (min-width: 700px) {
+  .grid.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid.two {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Zone cards: columns, so the button is pinned to the bottom edge whatever the description length */
+.grid .card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+}
+.grid .card h3 {
+  margin: 20px 0 12px;
+}
+.grid .card p {
+  margin: 0 0 20px;
+  line-height: 1.6;
+  text-align: justify;
+  hyphens: auto;
+}
+.grid .card .btn {
+  margin-top: auto;
+}
+.grid .card .btn-go {
+  align-self: stretch;
+}
+.btn-go {
+  padding: 0 28px;
+  gap: 10px;
+}
+.btn-go .arrow {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.zone-pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent2);
+  color: var(--accent2-text);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--card);
+  border-top: 1px solid var(--muted);
+}
+.foot {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 700px) {
+  .foot {
+    grid-template-columns: 2fr 1fr 1fr;
+  }
+}
+.foot ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.foot a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  color: var(--text);
+}
+.foot a.brand {
+  min-height: 56px;
+}
+.disclaimer {
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
