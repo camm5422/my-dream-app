@@ -24,7 +24,7 @@
 - [x] Update `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
-- [ ] You open the preview URL on a phone and confirm it works
+- [x] You open the preview URL on a phone and confirm it works
 - [ ] Pull request merged into `main` (only after your go-ahead)
 - [ ] Tick this milestone in the PLAN.md index
 
