@@ -20,13 +20,13 @@
 - [x] Build React components: Button, Card, Header, Footer, Nav, Callout, NoticeBanner
 - [x] Check contrast (WCAG AA) and reduced-motion support
 - [x] Add an internal `/styleguide` page that mirrors the approved mockup
-- [ ] Test on a mid-range Android phone and at projector resolution (checked at 500px and 1920px in headless Chrome; real Android phone is yours to check at Gate 2)
+- [x] Test on a mid-range Android phone and at projector resolution (headless Chrome at 500px and 1920px; owner confirmed on their phone at Gate 2)
 - [x] Update `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
-- [ ] You compare `/styleguide` with the mockup on your phone and confirm
-- [ ] Pull request merged into `main` (only after your go-ahead)
-- [ ] Tick this milestone in the PLAN.md index
+- [x] You compare `/styleguide` with the mockup on your phone and confirm
+- [x] Pull request merged into `main` (only after your go-ahead)
+- [x] Tick this milestone in the PLAN.md index
 
 ## Done when
 The style guide renders correctly in all three track themes on phone and large screen.
