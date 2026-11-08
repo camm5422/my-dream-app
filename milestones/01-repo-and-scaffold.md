@@ -18,8 +18,8 @@
 - [x] Add linting, formatting and a type-check script
 - [x] Create the placeholder routes from the approved site map
 - [x] Write `demo/README.md` section on how to run and publish
-- [ ] Connect the repo to Vercel (free tier), root directory `demo/`; confirm every pushed branch gets a preview URL
-- [ ] Connect the custom domain (when available)
+- [x] Connect the repo to Vercel (free tier), root directory `demo/`; confirm every pushed branch gets a preview URL
+- [ ] Connect the custom domain (deferred: the owner is not using a domain for now; revisit at launch, milestone 18)
 - [x] Confirm no secrets are committed
 - [x] Update `demo/STATUS.md`
 
