@@ -37,7 +37,7 @@ A phone-first learning website about electricity, grids and small modular reacto
 6. **Merge** to `main` through a pull request only after the owner explicitly says so. Never merge on your own.
 7. Tick the checklist in the milestone file and the index table in `PLAN.md`.
 
-Status: milestone 00 (brand and domain) is done and merged to `main`. Next step: milestone 01 (repo and scaffold). Create `milestone/01-repo-and-scaffold` from `main` and build its mockup first. Carried-over open items from 00 (owner's to do): register a domain, trademark and social-handle check, decide base country.
+Status: milestones 00 (brand and domain) and 01 (repo and scaffold) are done and merged to `main`. The Next.js app in `demo/` is deployed on Vercel (project `my-dream-app-demo`, root directory `demo`); every pushed branch gets a preview URL and `main` is the production branch. The owner is not using a custom domain for now. Needs Node.js (installed via winget; add `C:\Program Files\nodejs` to PATH in the shell). Next step: milestone 02 (design system). Create `milestone/02-design-system` from `main` and build its mockup first. Carried-over open items (owner's to do): domain (deferred), trademark and social-handle check, decide base country.
 
 ## Auto-push of plan docs
 A Claude Code `PostToolUse` hook (in `C:\Users\cmcke\OneDrive\CameronEngineering\.claude\settings.json`, outside the repo) runs `scripts/sync-plan.ps1` after Edit/Write. The script commits and pushes the current branch when `PLAN.md`, `CLAUDE.md` or `milestones/*.md` changed. Notes:
