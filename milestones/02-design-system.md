@@ -12,16 +12,16 @@
 - [x] Link from `mockups/index.html`, commit and push
 
 ## Gate 1: Your review of the mockup
-- [ ] You approve the look of each track (or request changes)
+- [x] You approve the look of each track (or request changes)
 
 ## Phase B: Implementation (after Gate 1)
-- [ ] Implement design tokens per track in `demo/src/styles/`
-- [ ] Implement theme switching by section
-- [ ] Build React components: Button, Card, Header, Footer, Nav, Callout, NoticeBanner
-- [ ] Check contrast (WCAG AA) and reduced-motion support
-- [ ] Add an internal `/styleguide` page that mirrors the approved mockup
-- [ ] Test on a mid-range Android phone and at projector resolution
-- [ ] Update `demo/STATUS.md`
+- [x] Implement design tokens per track in `demo/src/styles/`
+- [x] Implement theme switching by section
+- [x] Build React components: Button, Card, Header, Footer, Nav, Callout, NoticeBanner
+- [x] Check contrast (WCAG AA) and reduced-motion support
+- [x] Add an internal `/styleguide` page that mirrors the approved mockup
+- [ ] Test on a mid-range Android phone and at projector resolution (checked at 500px and 1920px in headless Chrome; real Android phone is yours to check at Gate 2)
+- [x] Update `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
 - [ ] You compare `/styleguide` with the mockup on your phone and confirm
