@@ -46,6 +46,23 @@
   --accent2-text: #151515;
   --card: #ffffff;
   --radius: 18px;
+
+  /* Callout colours (icon and left border; text stays --text). All 3:1 or better on --card. */
+  --info: #0b7673;
+  --warn: #8a5200;
+  --danger: #c93a2d;
+
+  /* Keyboard focus ring and card/panel outlines (added in milestone 02) */
+  --focus: var(--lc-ink);
+  --border: transparent;
+
+  /* Per-track character (milestone 02) */
+  --btn-shadow: none; /* raised look on buttons */
+  --label-font: var(--font-body); /* small labels */
+  --label-case: none;
+  --label-track: 0;
+  --base-size: 1rem; /* body text size of a themed page */
+  --head-weight: 700;
 }
 
 /* Kids zone, 8-11: warm, rounded, playful */
@@ -53,6 +70,9 @@
   --bg: #fff1c2;
   --accent: var(--lc-coral-deep);
   --radius: 28px;
+  --base-size: 1.125rem;
+  --btn-shadow: 0 4px 0 rgba(29, 43, 79, 0.45);
+  --head-weight: 800;
 }
 
 /* Students zone, 12-15: cooler, game-like */
@@ -60,6 +80,9 @@
   --bg: #e3f5f4;
   --accent: var(--lc-teal-deep);
   --radius: 16px;
+  --btn-shadow: 0 3px 0 rgba(11, 118, 115, 0.55);
+  --label-case: uppercase;
+  --label-track: 0.06em;
 }
 
 /* Pros zone, 16+: dark, control-room */
@@ -71,6 +94,35 @@
   --accent-text: var(--lc-ink);
   --card: var(--lc-night-card);
   --radius: 8px;
+  --info: #5fd1cc;
+  --warn: #ffc531;
+  --danger: #ff8a7c;
+  --focus: var(--lc-sunshine);
+  --border: #2c4b5a;
+  --label-font: var(--font-mono);
+  --label-case: uppercase;
+  --label-track: 0.08em;
+  --head-weight: 600;
+}
+
+/* Projector / teacher view: set data-view="projector" next to data-track. Near-black, white text,
+   bigger type, thick outlines. Keeps the track's corner radius. Must stay after the track blocks. */
+[data-view="projector"] {
+  --bg: #000;
+  --text: #fff;
+  --muted: #d6dde0;
+  --card: #0a0a0a;
+  --border: #fff;
+  --accent: var(--lc-sunshine);
+  --accent-text: #000;
+  --accent2: #fff;
+  --accent2-text: #000;
+  --info: #5fd1cc;
+  --warn: #ffc531;
+  --danger: #ff8a7c;
+  --focus: var(--lc-sunshine);
+  --btn-shadow: none;
+  --base-size: 1.35rem;
 }
 
 /* Respect reduced-motion preferences for the mascot and any future animation */

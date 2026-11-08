@@ -1,0 +1,215 @@
+/* Internal /styleguide page. Page chrome plus the specimen layout; the components themselves use
+   the shared styles in src/styles/components.css and site.css. */
+
+.sg-page {
+  min-height: 100vh;
+  background: #e9edf3;
+  color: var(--lc-ink);
+  padding: 16px;
+}
+.sg-page > * {
+  max-width: 1200px;
+  margin-inline: auto;
+}
+.sg-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+}
+
+/* Review controls (not part of the design system) */
+.controls {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: grid;
+  gap: 8px;
+  padding: 8px 0;
+  background: #e9edf3;
+  border-bottom: 1px solid #b9c2d3;
+}
+.ctl-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.ctl-row b {
+  font-size: var(--text-sm);
+  min-width: 52px;
+}
+.ctl {
+  min-height: var(--tap-min);
+  padding: 0 16px;
+  border: 2px solid var(--lc-teal-deep);
+  border-radius: 14px;
+  background: #fff;
+  color: var(--lc-teal-deep);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.ctl[aria-pressed="true"] {
+  background: var(--lc-teal-deep);
+  color: #fff;
+}
+.out {
+  display: grid;
+  gap: 24px;
+  margin: 16px auto 40px;
+}
+
+/* One themed copy of the style guide */
+.specimen {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--base-size);
+  line-height: 1.5;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(16, 34, 43, 0.25);
+}
+.specimen .site-header {
+  position: static;
+  border: 2px solid var(--border);
+  border-bottom: 4px solid var(--accent2);
+  border-radius: var(--radius);
+}
+.specimen .site-footer {
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+}
+.sg {
+  display: grid;
+  gap: 28px;
+  padding: 20px 16px 28px;
+}
+@media (min-width: 700px) {
+  .sg {
+    padding: 28px 32px 40px;
+  }
+}
+.sg h2 {
+  font-size: var(--text-xl);
+  margin: 0 0 4px;
+}
+.sg h3 {
+  font-size: var(--text-lg);
+  margin: 0 0 8px;
+}
+.sg p {
+  margin: 0 0 12px;
+}
+.sg .sec-note {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  margin-bottom: 12px;
+}
+.sg code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+.gap {
+  height: 16px;
+}
+.track-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+.sg-grid {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 700px) {
+  .sg-grid.three {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Colours */
+.swatches {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+.sw {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 96px;
+  padding: 10px 12px;
+  border: 2px solid var(--muted);
+  border-radius: var(--radius);
+}
+.sw .aa {
+  font-family: var(--font-head);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.sw small {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+/* Type scale */
+.type-row {
+  display: grid;
+  gap: 2px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--muted);
+}
+.t-head {
+  font-family: var(--font-head);
+  font-weight: var(--head-weight);
+  line-height: 1.2;
+}
+
+/* Keyboard focus shown without needing the keyboard */
+.btn.is-focus {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Touch targets */
+.targets {
+  display: grid;
+  gap: 10px;
+}
+.tt {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tt .meas {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.tt .box {
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font-weight: 800;
+}
+.show-taps :is(.btn, .menu-btn, nav a, .group-btn, .site-footer li a, .brand) {
+  outline: 2px dashed #e0245e;
+  outline-offset: 0;
+}
