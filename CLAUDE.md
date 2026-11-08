@@ -37,13 +37,21 @@ A phone-first learning website about electricity, grids and small modular reacto
 6. **Merge** to `main` through a pull request only after the owner explicitly says so. Never merge on your own.
 7. Tick the checklist in the milestone file and the index table in `PLAN.md`.
 
-Status: milestone 00 (brand and domain) is done and merged to `main`. Next step: milestone 01 (repo and scaffold). Create `milestone/01-repo-and-scaffold` from `main` and build its mockup first. Carried-over open items from 00 (owner's to do): register a domain, trademark and social-handle check, decide base country.
+Status: milestones 00 (brand and domain) and 01 (repo and scaffold) are done and merged to `main`. The Next.js app in `demo/` is deployed on Vercel (project `my-dream-app-demo`, root directory `demo`); every pushed branch gets a preview URL and `main` is the production branch. The owner is not using a custom domain for now. Needs Node.js (installed via winget; add `C:\Program Files\nodejs` to PATH in the shell). Next step: milestone 02 (design system). Create `milestone/02-design-system` from `main` and build its mockup first. Carried-over open items (owner's to do): domain (deferred), trademark and social-handle check, decide base country.
 
 ## Auto-push of plan docs
 A Claude Code `PostToolUse` hook (in `C:\Users\cmcke\OneDrive\CameronEngineering\.claude\settings.json`, outside the repo) runs `scripts/sync-plan.ps1` after Edit/Write. The script commits and pushes the current branch when `PLAN.md`, `CLAUDE.md` or `milestones/*.md` changed. Notes:
 - It only triggers for Claude's edits, not manual ones.
 - On a milestone branch the plan edit goes to that branch and reaches `main` at merge.
 - If a session starts with the repo as its working directory, the hook may not load; push plan edits manually in that case.
+
+## Live prompt log (owner's "how it started" Word document)
+The owner keeps a live Word document of every prompt they send, so they can see how the project began and evolved. It sits outside the repo (not on any branch) in `C:\Users\cmcke\OneDrive\CameronEngineering\`:
+- `How-my-dream-app-started.docx`: the document (if it is open in Word, the hook writes `How-my-dream-app-started-LATEST.docx` instead).
+- `prompt-log/prompt-log.json`: the data. Each entry has `n`, `date`, `title`, `when`, `text` (the prompt verbatim) and `note` ("What it did").
+- `prompt-log/log-prompt.ps1`: a `UserPromptSubmit` hook (same `.claude/settings.json` as above) that appends every new prompt and rebuilds the document by running `prompt-log/build-prompt-doc.ps1`.
+
+For sessions: do not edit the `text` of an entry. When asked, or at the end of a milestone step, fill in the blank `title` and `note` fields of recent entries (one or two plain sentences on what the prompt led to), then run `powershell -NoProfile -ExecutionPolicy Bypass -File prompt-log\build-prompt-doc.ps1`. The static sections of the document (method, where things live, answers to the clarifying questions) are in `build-prompt-doc.ps1`; update them there when the workflow changes. The log is not committed to git.
 
 ## Git and environment notes
 - Git is at `C:\Program Files\Git\cmd` and the GitHub CLI at `C:\Program Files\GitHub CLI\gh.exe`; neither is on the default PATH, so add them in the shell session.

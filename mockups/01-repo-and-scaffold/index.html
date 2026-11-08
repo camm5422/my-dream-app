@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>01 Site map and navigation</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <style>
+    /* Wider than the default mockup column so the 1100px desktop preview is not squeezed below its breakpoint */
+    .wrap { max-width: 1400px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+    .toolbar button { min-height: var(--tap-min); padding: 0 16px; border: 2px solid var(--accent); border-radius: var(--radius); background: var(--card); color: var(--accent); font: inherit; font-weight: 700; cursor: pointer; }
+    .toolbar button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); }
+    .stage { display: flex; justify-content: center; background: #cfd6e4; border-radius: var(--radius); padding: 16px; overflow: auto; }
+    iframe { flex: none; border: 0; background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.25); width: 390px; height: 760px; }
+    table { border-collapse: collapse; width: 100%; font-size: var(--text-sm); }
+    td, th { border-bottom: 1px solid var(--muted); padding: 6px 8px; text-align: left; vertical-align: top; }
+    code { font-family: var(--font-mono); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="badge">Milestone 01 · Phase A mockup</p>
+    <h1>Site map and navigation</h1>
+    <p>Click around the site below. Switch the width to see the phone menu, a desktop layout and the projector view. All content is placeholder.</p>
+
+    <div class="toolbar" role="group" aria-label="Preview width">
+      <button data-w="390" data-h="760" aria-pressed="true">Phone (390)</button>
+      <button data-w="820" data-h="760" aria-pressed="false">Tablet (820)</button>
+      <button data-w="1100" data-h="760" aria-pressed="false">Desktop (1100)</button>
+      <button data-w="1280" data-h="720" data-projector="1" aria-pressed="false">Projector (1280, big text)</button>
+      <a class="btn" href="site.html" target="_blank" style="margin-left:auto">Open full screen</a>
+    </div>
+
+    <div class="stage"><iframe id="frame" src="site.html" title="Littlecore site mockup"></iframe></div>
+
+    <h2>Site map</h2>
+    <table>
+      <tr><th>Route</th><th>Purpose</th><th>Built in</th></tr>
+      <tr><td><code>/</code></td><td>Home: pitch, zone picker, book button</td><td>03</td></tr>
+      <tr><td><code>/kids</code> <code>/students</code> <code>/pros</code></td><td>Zone landing pages with their own look</td><td>02, 03</td></tr>
+      <tr><td><code>/learn</code>, <code>/learn/*</code></td><td>Lessons</td><td>07, 08, 14, 15</td></tr>
+      <tr><td><code>/play</code>, <code>/play/*</code></td><td>Simulators, quizzes, diagram builder</td><td>09, 10, 11, 16</td></tr>
+      <tr><td><code>/classroom</code></td><td>Join by room code; teacher projector view</td><td>12</td></tr>
+      <tr><td><code>/book</code></td><td>Booking and payments</td><td>06</td></tr>
+      <tr><td><code>/about</code></td><td>Bio and credentials</td><td>03</td></tr>
+      <tr><td><code>/sources</code></td><td>Public sources cited</td><td>04, 05</td></tr>
+      <tr><td><code>/privacy</code></td><td>Privacy notice</td><td>04</td></tr>
+    </table>
+
+    <h2>Navigation (revision 2)</h2>
+    <ul>
+      <li><strong>Desktop (1100):</strong> the header shows the categories <em>Learn by age</em> and <em>Explore</em> as dropdowns, <em>About</em> as a button, and a highlighted <em>Book a session</em> button.</li>
+      <li><strong>Phone, tablet and projector:</strong> a grid icon replaces the Menu button and opens a full-width list with the same categories and the Book a session button.</li>
+      <li>Zone pages keep their own colours. Sources and Privacy sit in the footer, which now carries the Littlecore logo.</li>
+    </ul>
+    <p>Still to confirm: is the projector view meant to use the compact grid-icon menu (as built), or the full desktop header?</p>
+  </main>
+
+  <script>
+    const frame = document.getElementById('frame');
+    document.querySelectorAll('.toolbar button').forEach(b => b.addEventListener('click', () => {
+      document.querySelectorAll('.toolbar button').forEach(x => x.setAttribute('aria-pressed', x === b));
+      frame.style.width = b.dataset.w + 'px';
+      frame.style.height = b.dataset.h + 'px';
+      frame.contentWindow.postMessage({ projector: !!b.dataset.projector }, '*');
+    }));
+  </script>
+</body>
+</html>
