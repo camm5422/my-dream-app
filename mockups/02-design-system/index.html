@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>02 Design system style guide</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <style>
+    /* ---------- Review controls (page chrome, not part of the design system) ---------- */
+    body { background: #e9edf3; color: var(--lc-ink); }
+    .wrap { max-width: 1200px; }
+    .controls { position: sticky; top: 0; z-index: 30; background: #e9edf3; padding: 8px 0; display: grid; gap: 8px; border-bottom: 1px solid #b9c2d3; }
+    .ctl-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .ctl-row b { font-size: var(--text-sm); min-width: 84px; }
+    .ctl-row button { min-height: var(--tap-min); padding: 0 16px; border: 2px solid var(--lc-teal-deep); border-radius: 14px; background: #fff; color: var(--lc-teal-deep); font: inherit; font-weight: 700; cursor: pointer; }
+    .ctl-row button[aria-pressed="true"] { background: var(--lc-teal-deep); color: #fff; }
+    .review-notes li { margin-bottom: 6px; }
+    .review-notes code, .sg code { font-family: var(--font-mono); font-size: 0.85em; }
+
+    /* ---------- Stage: one themed copy of the style guide ---------- */
+    #out { display: grid; gap: 24px; margin: 16px 0 40px; }
+    #out.phone .stage { width: 100%; max-width: 390px; margin-inline: auto; }
+    .stage {
+      container-type: inline-size; container-name: stage;
+      /* Proposed extra tokens (not in tokens.css yet) */
+      --info: #0b7673; --warn: #8a5200; --danger: #c93a2d;
+      --focus: var(--lc-ink); --border: transparent;
+      --btn-shadow: none; --label-font: var(--font-body); --label-case: none; --label-track: 0;
+      --base-size: 1rem; --head-weight: 700;
+      background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: var(--base-size);
+      border-radius: 20px; overflow: hidden; box-shadow: 0 4px 18px rgba(16, 34, 43, .25);
+    }
+    .stage[data-track="kids"]     { --base-size: 1.125rem; --btn-shadow: 0 4px 0 rgba(29, 43, 79, .45); --head-weight: 800; }
+    .stage[data-track="students"] { --btn-shadow: 0 3px 0 rgba(11, 118, 115, .55); --head-weight: 700; --label-case: uppercase; --label-track: .06em; }
+    .stage[data-track="pros"]     { --info: #5fd1cc; --warn: #ffc531; --danger: #ff8a7c; --focus: var(--lc-sunshine); --border: #2c4b5a; --label-font: var(--font-mono); --label-case: uppercase; --label-track: .08em; --head-weight: 600; }
+    /* Projector / teacher view: near-black, white text, bigger type, thick outlines. Works on top of any track. */
+    .stage.projector {
+      --bg: #000; --text: #fff; --muted: #d6dde0; --card: #0a0a0a; --border: #fff;
+      --accent: #ffc531; --accent-text: #000; --accent2: #fff; --accent2-text: #000;
+      --info: #5fd1cc; --warn: #ffc531; --danger: #ff8a7c; --focus: #ffc531; --btn-shadow: none;
+      --base-size: 1.35rem;
+    }
+    .stage.projector .card, .stage.projector .callout, .stage.projector .x-header, .stage.projector .x-footer { border-width: 3px; }
+
+    .sg { padding: 20px 16px 28px; display: grid; gap: 28px; }
+    @container stage (min-width: 700px) { .sg { padding: 28px 32px 40px; } }
+    .sg h2 { font-family: var(--font-head); font-weight: var(--head-weight); font-size: var(--text-xl); margin: 0 0 4px; }
+    .sg h3 { font-family: var(--font-head); font-weight: var(--head-weight); font-size: var(--text-lg); margin: 0 0 8px; }
+    .sg p { margin: 0 0 12px; }
+    .sg .sec-note { color: var(--muted); font-size: var(--text-sm); margin-bottom: 12px; }
+    .label { font-family: var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-track); font-size: .75rem; font-weight: 700; color: var(--muted); }
+    :where(.sg) a { color: var(--accent); }
+    .track-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .track-head img { width: 64px; height: 64px; }
+    .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--accent2); color: var(--accent2-text); font-weight: 700; font-size: .8rem; border: 2px solid var(--border); }
+
+    /* Colours */
+    .swatches { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+    .sw { border-radius: var(--radius); padding: 10px 12px; min-height: 96px; display: flex; flex-direction: column; justify-content: space-between; border: 2px solid var(--muted); }
+    .sw .aa { font-size: 1.5rem; font-family: var(--font-head); font-weight: 800; line-height: 1; }
+    .sw small { font-family: var(--font-mono); font-size: .7rem; line-height: 1.35; }
+    .sw .ok { font-weight: 700; }
+
+    /* Type scale */
+    .type-row { display: grid; gap: 2px; padding: 8px 0; border-bottom: 1px solid var(--muted); }
+    .type-row .label { margin: 0; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--tap-min); padding: 0 22px; line-height: 1; border: 2px solid var(--accent); border-radius: var(--radius); background: var(--accent); color: var(--accent-text); font: inherit; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; text-decoration: none; cursor: pointer; box-shadow: var(--btn-shadow); }
+    .btn.secondary { background: transparent; color: var(--accent); }
+    .btn.cta { background: var(--accent2); border-color: var(--accent2); color: var(--accent2-text); }
+    .btn[disabled] { opacity: .55; cursor: not-allowed; box-shadow: none; }
+    .btn.is-focus, .btn:focus-visible, .x-nav a:focus-visible, .x-menu:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .btn .arrow { width: 22px; height: 22px; }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .grid { display: grid; gap: 16px; }
+    @container stage (min-width: 700px) { .grid.three { grid-template-columns: repeat(3, 1fr); } .grid.two { grid-template-columns: repeat(2, 1fr); } }
+
+    /* Cards */
+    .card { background: var(--card); border: 2px solid var(--border); border-radius: var(--radius); padding: 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .card h3 { margin: 4px 0 0; }
+    .card p { margin: 0; }
+    .card .btn { margin-top: auto; align-self: stretch; }
+    .meter { width: 100%; height: 14px; border-radius: 999px; background: var(--bg); border: 2px solid var(--muted); overflow: hidden; }
+    .meter > i { display: block; height: 100%; background: var(--accent); }
+    .stat { font-family: var(--font-head); font-size: 2rem; font-weight: 800; line-height: 1; }
+
+    /* Callouts: border + icon + a text label, so meaning never relies on colour alone */
+    .callout { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; background: var(--card); border: 2px solid var(--border); border-left: 8px solid var(--c); border-radius: var(--radius); padding: 14px 16px; }
+    .callout .ico { grid-row: span 2; width: 28px; height: 28px; color: var(--c); }
+    .callout strong { font-family: var(--font-head); }
+    .callout p { margin: 0; }
+    .callout.info { --c: var(--info); } .callout.warn { --c: var(--warn); } .callout.danger { --c: var(--danger); }
+
+    /* Notice banner: the "educational, not for design" strip, on every lesson and simulator */
+    .notice { display: flex; gap: 12px; align-items: flex-start; background: var(--lc-sunshine); color: #151515; border-radius: var(--radius); padding: 12px 16px; border: 2px solid var(--border); font-weight: 600; font-size: var(--text-sm); }
+    .notice svg { flex: none; width: 24px; height: 24px; }
+    .stage[data-track="pros"] .notice { background: var(--card); color: var(--text); border: 2px solid var(--lc-sunshine); }
+    .stage.projector .notice { background: var(--lc-sunshine); color: #000; border-color: #fff; }
+
+    /* Header / navigation (container query stands in for the viewport width) */
+    .x-header { background: var(--card); border: 2px solid var(--border); border-bottom: 4px solid var(--accent2); border-radius: var(--radius); }
+    .x-bar { display: flex; align-items: center; gap: 12px; padding: 8px 12px; flex-wrap: wrap; }
+    .x-brand { display: flex; align-items: center; gap: 10px; min-height: 56px; color: var(--text); text-decoration: none; font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+    .x-brand img { width: 44px; height: 44px; }
+    .x-menu { margin-left: auto; width: var(--tap-min); height: var(--tap-min); display: grid; place-items: center; border: 2px solid var(--text); border-radius: var(--radius); background: transparent; color: var(--text); cursor: pointer; }
+    .x-menu svg { width: 24px; height: 24px; fill: currentColor; }
+    .x-nav { display: none; width: 100%; padding: 4px 4px 12px; }
+    .x-nav.open { display: block; }
+    .x-nav ul { list-style: none; margin: 0; padding: 0; }
+    .x-nav .grp { display: block; margin: 8px 12px 0; }
+    .x-nav a { display: flex; align-items: center; min-height: var(--tap-min); padding: 0 12px; border-radius: var(--radius); color: var(--text); text-decoration: none; font-family: var(--font-head); font-weight: 600; }
+    .x-nav a[aria-current="page"] { background: var(--accent); color: var(--accent-text); }
+    .x-nav a.cta { background: var(--accent2); color: var(--accent2-text); justify-content: center; margin-top: 8px; font-weight: 700; }
+    @container stage (min-width: 900px) {
+      .x-menu { display: none; }
+      .x-nav, .x-nav.open { display: block; width: auto; margin-left: auto; padding: 0; }
+      .x-nav ul { display: flex; align-items: center; gap: 4px; }
+      .x-nav .grp { display: none; }
+      .x-nav ul ul { display: contents; }
+      .x-nav a.cta { margin: 0 0 0 8px; padding: 0 20px; }
+    }
+    .x-footer { background: var(--card); border: 2px solid var(--border); border-radius: var(--radius); padding: 16px; display: grid; gap: 12px; }
+    @container stage (min-width: 700px) { .x-footer { grid-template-columns: 2fr 1fr 1fr; } }
+    .x-footer ul { list-style: none; margin: 0; padding: 0; }
+    .x-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text); }
+    .x-footer .disclaimer { font-size: var(--text-sm); color: var(--muted); margin: 0; }
+
+    /* Touch targets */
+    .targets { display: grid; gap: 10px; }
+    .tt { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .tt .meas { font-family: var(--font-mono); font-size: .8rem; color: var(--muted); }
+    .tt .box { background: var(--accent); color: var(--accent-text); display: grid; place-items: center; font-weight: 800; border-radius: 8px; }
+    .stage.show-taps .btn, .stage.show-taps .x-menu, .stage.show-taps .x-nav a, .stage.show-taps .x-footer a { outline: 2px dashed #e0245e; outline-offset: 0; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="badge">Milestone 02 · Phase A mockup</p>
+    <h1>Design system style guide</h1>
+    <p>One style guide, shown in each track's look. Use the controls to switch track, preview at phone width, try the projector variant, and outline every tap target. The page measures contrast and tap-target sizes live from the real tokens, so the numbers below are not typed in by hand. All content is placeholder.</p>
+
+    <section class="controls" aria-label="Preview controls">
+      <div class="ctl-row" role="group" aria-label="Track">
+        <b>Track</b>
+        <button data-track="kids" aria-pressed="true">Kids (8-11)</button>
+        <button data-track="students" aria-pressed="false">Students (12-15)</button>
+        <button data-track="pros" aria-pressed="false">Pros (16+)</button>
+        <button data-track="all" aria-pressed="false">All three</button>
+      </div>
+      <div class="ctl-row">
+        <b>View</b>
+        <button id="b-phone" aria-pressed="false">Phone width (390)</button>
+        <button id="b-proj" aria-pressed="false">Projector variant</button>
+        <button id="b-taps" aria-pressed="false">Outline tap targets</button>
+      </div>
+    </section>
+
+    <div id="out"></div>
+
+    <section class="review-notes">
+      <h2>What differs per track</h2>
+      <table style="border-collapse:collapse;width:100%;font-size:var(--text-sm)">
+        <tr><th style="text-align:left">Property</th><th style="text-align:left">Kids 8-11</th><th style="text-align:left">Students 12-15</th><th style="text-align:left">Pros 16+</th></tr>
+        <tr><td>Page colour</td><td>Warm yellow</td><td>Pale teal</td><td>Dark night blue</td></tr>
+        <tr><td>Button / accent</td><td>Deep coral</td><td>Deep teal</td><td>Sunshine yellow</td></tr>
+        <tr><td>Corner radius</td><td>28px</td><td>16px</td><td>8px</td></tr>
+        <tr><td>Body text</td><td>18px</td><td>16px</td><td>16px</td></tr>
+        <tr><td>Buttons</td><td>Chunky, raised shadow</td><td>Raised, game-style</td><td>Flat, outlined cards</td></tr>
+        <tr><td>Small labels</td><td>Normal case</td><td>Uppercase</td><td>Uppercase monospace</td></tr>
+        <tr><td>Cards</td><td>Soft white</td><td>White, progress bars</td><td>Dark panel, thin border</td></tr>
+      </table>
+
+      <h2 style="margin-top:24px">Please confirm at Gate 1</h2>
+      <ol>
+        <li><strong>Kids body text at 18px</strong> (others 16px). OK, or keep every track at 16px?</li>
+        <li><strong>Projector is a view option, not a fourth track.</strong> It sits on top of whichever track is active (the teacher view in milestone 12 and any big-screen use). OK?</li>
+        <li><strong>New tokens proposed</strong> beyond milestone 00: <code>--info</code>, <code>--warn</code>, <code>--danger</code> (callouts), <code>--focus</code> (keyboard focus ring), <code>--border</code>, <code>--btn-shadow</code>. Colours were chosen to pass AA; the numbers shown are measured.</li>
+        <li><strong>Footer links grow from 40px to 44px tall</strong> to meet the 44px minimum. Buttons and menu items stay at 48px.</li>
+        <li><strong>Callouts always carry an icon and a word</strong> (Tip, Careful, Safety), never colour alone.</li>
+        <li>The <strong>Notice banner</strong> ("Educational, not for design") is yellow on Kids and Students, and a dark panel with a yellow outline on Pros. OK?</li>
+      </ol>
+      <p class="mock-note">Not shown here because they belong to later milestones: lesson layout (07), quiz and badge widgets (10), simulator panels (09), classroom screens (12).</p>
+    </section>
+  </main>
+
+  <template id="tpl">
+    <div class="sg">
+      <div class="track-head">
+        <img class="mascot" src="../../demo/public/brand/mascot-cori.svg" alt="Cori the Littlecore mascot">
+        <div>
+          <span class="pill js-pill"></span>
+          <h2 class="js-title"></h2>
+          <p class="sec-note js-sub" style="margin:0"></p>
+        </div>
+      </div>
+
+      <section>
+        <h2>Colours</h2>
+        <p class="sec-note">Each tile shows a pair used together. The ratio is measured live. Text needs 4.5:1, large text and icons 3:1 (WCAG AA).</p>
+        <div class="swatches js-swatches"></div>
+      </section>
+
+      <section>
+        <h2>Type scale</h2>
+        <div class="type-row"><span class="label">Hero · Baloo 2 · up to 45px</span><span style="font-family:var(--font-head);font-weight:var(--head-weight);font-size:var(--text-hero);line-height:1.15">Big power from a little core</span></div>
+        <div class="type-row"><span class="label">Heading · Baloo 2 · up to 32px</span><span style="font-family:var(--font-head);font-weight:var(--head-weight);font-size:var(--text-xl);line-height:1.2">How does a grid stay in balance?</span></div>
+        <div class="type-row"><span class="label">Subheading · Baloo 2 · 20px</span><span style="font-family:var(--font-head);font-weight:var(--head-weight);font-size:var(--text-lg)">Voltage is the push, current is the flow</span></div>
+        <div class="type-row"><span class="label">Body · Nunito · base</span><span>Electricity travels from a power station to your home along wires. A transformer changes the voltage on the way so it is safe to use.</span></div>
+        <div class="type-row"><span class="label">Small · Nunito · 14px</span><span style="font-size:var(--text-sm)">Source: IAEA open publication. Educational, not for design.</span></div>
+        <div class="type-row"><span class="label">Numbers and units · IBM Plex Mono</span><span style="font-family:var(--font-mono)">230 V · 50 Hz · 1.2 MWe · 300 °C</span></div>
+      </section>
+
+      <section>
+        <h2>Buttons</h2>
+        <p class="sec-note">Minimum 48px tall. Icon never replaces the text label.</p>
+        <div class="row">
+          <a class="btn" href="#">Start learning</a>
+          <a class="btn secondary" href="#">See the lessons</a>
+          <a class="btn cta" href="#">Book a session</a>
+          <button class="btn" disabled>Disabled</button>
+          <a class="btn is-focus" href="#">Keyboard focus</a>
+          <a class="btn" href="#">Go
+            <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </section>
+
+      <section>
+        <h2>Cards</h2>
+        <div class="grid three">
+          <article class="card">
+            <span class="pill">Lesson · 8 min</span>
+            <h3>What is voltage?</h3>
+            <p>Water-pipe pictures show how electricity is pushed through wires.</p>
+            <div class="meter" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Lesson progress"><i style="width:60%"></i></div>
+            <span class="label">60% done · saved on this device</span>
+            <a class="btn" href="#">Continue</a>
+          </article>
+          <article class="card">
+            <span class="pill">Play</span>
+            <h3>Grid balance game</h3>
+            <p>Keep supply and demand level for one whole day.</p>
+            <span class="label">Best score</span>
+            <span class="stat">4,820</span>
+            <a class="btn secondary" href="#">Play again</a>
+          </article>
+          <article class="card">
+            <span class="pill">Badge</span>
+            <h3>Frequency Keeper</h3>
+            <p>Awarded for holding 50 Hz in the simulator.</p>
+            <span class="label">Earned today</span>
+            <a class="btn cta" href="#">Share card</a>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2>Callouts and notice</h2>
+        <div class="grid">
+          <div class="callout info"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.01"/></svg><strong>Tip</strong><p>Try changing the load and watch the frequency move.</p></div>
+          <div class="callout warn"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 21h20L12 3z"/><path d="M12 10v5M12 18v.01"/></svg><strong>Careful</strong><p>Real grids use many more safeguards than this model.</p></div>
+          <div class="callout danger"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/></svg><strong>Safety</strong><p>Never touch mains sockets, wires or batteries without an adult.</p></div>
+          <div class="notice" role="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.01"/></svg><span>Educational, not for design. Simplified and illustrative, using public sources only.</span></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Header and navigation</h2>
+        <p class="sec-note js-hdr-note"></p>
+        <header class="x-header">
+          <div class="x-bar">
+            <a class="x-brand" href="#"><img src="../../demo/public/brand/logo-mark.svg" alt="">Littlecore</a>
+            <button class="x-menu js-menu" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h4v4H3zM10 3h4v4h-4zM17 3h4v4h-4zM3 10h4v4H3zM10 10h4v4h-4zM17 10h4v4h-4zM3 17h4v4H3zM10 17h4v4h-4zM17 17h4v4h-4z"/></svg></button>
+            <nav class="x-nav js-nav" aria-label="Main">
+              <ul>
+                <li class="grp label">Learn by age</li>
+                <li><a href="#" aria-current="page">Kids</a></li>
+                <li><a href="#">Students</a></li>
+                <li><a href="#">Pros</a></li>
+                <li class="grp label">Explore</li>
+                <li><a href="#">Lessons</a></li>
+                <li><a href="#">Play</a></li>
+                <li><a href="#">About</a></li>
+                <li><a class="cta" href="#">Book a session</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+        <p class="sec-note" style="margin-top:12px">Footer</p>
+        <footer class="x-footer">
+          <div>
+            <a class="x-brand" href="#" style="font-size:1.4rem"><img src="../../demo/public/brand/logo-mark.svg" alt="">Littlecore</a>
+            <p class="disclaimer">Big power from a little core. Educational, not for design. Public sources only.</p>
+          </div>
+          <ul><li class="label">Learn</li><li><a href="#">Lessons</a></li><li><a href="#">Play</a></li></ul>
+          <ul><li class="label">About</li><li><a href="#">Sources</a></li><li><a href="#">Privacy</a></li></ul>
+        </footer>
+      </section>
+
+      <section>
+        <h2>Touch targets</h2>
+        <p class="sec-note">Rule: nothing tappable is smaller than 44px; buttons and menu items are 48px. Sizes below are measured on this page.</p>
+        <div class="targets js-targets"></div>
+      </section>
+
+      <section>
+        <h2>Motion</h2>
+        <p class="sec-note">Animation is short and only decorative. When the device asks for reduced motion, all animation and transitions are switched off (already in <code>tokens.css</code>).</p>
+      </section>
+    </div>
+  </template>
+
+  <script>
+    const META = {
+      kids:     { pill: 'Kids zone · 8-11', title: 'Playful and chunky', sub: 'Warm colours, big round shapes, large text, Cori the mascot.' },
+      students: { pill: 'Students zone · 12-15', title: 'Game-like and clear', sub: 'Cooler colours, progress bars and scores, uppercase labels.' },
+      pros:     { pill: 'Pros zone · 16+', title: 'Calm control room', sub: 'Dark panels, sharp corners, monospace labels, yellow highlights.' }
+    };
+    // [token for background, token for text, label]
+    const PAIRS = [
+      ['--bg', '--text', 'Text on page'],
+      ['--bg', '--muted', 'Muted text on page'],
+      ['--card', '--text', 'Text on card'],
+      ['--card', '--muted', 'Muted on card'],
+      ['--accent', '--accent-text', 'Button label'],
+      ['--accent2', '--accent2-text', 'Highlight label'],
+      ['--bg', '--accent', 'Link on page'],
+      ['--card', '--info', 'Tip icon'],
+      ['--card', '--warn', 'Careful icon'],
+      ['--card', '--danger', 'Safety icon']
+    ];
+    const rgb = s => s.match(/[\d.]+/g).slice(0, 3).map(Number);
+    const lum = c => { const [r, g, b] = c.map(v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }); return .2126 * r + .7152 * g + .0722 * b; };
+    const ratio = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+    const hex = c => '#' + c.map(v => Math.round(v).toString(16).padStart(2, '0')).join('');
+
+    const out = document.getElementById('out');
+    const tpl = document.getElementById('tpl');
+    const state = { track: 'kids', phone: false, proj: false, taps: false };
+
+    function fillSwatches(stage) {
+      const host = stage.querySelector('.js-swatches');
+      PAIRS.forEach(([bgT, fgT, name]) => {
+        const el = document.createElement('div');
+        el.className = 'sw';
+        el.style.background = `var(${bgT})`;
+        el.style.color = `var(${fgT})`;
+        el.innerHTML = '<span class="aa">Aa</span><span><small class="nm"></small><br><small class="rt"></small></span>';
+        host.appendChild(el);
+        const cs = getComputedStyle(el);
+        const bg = rgb(cs.backgroundColor), fg = rgb(cs.color), r = ratio(bg, fg);
+        const icon = fgT === '--info' || fgT === '--warn' || fgT === '--danger';
+        const need = icon ? 3 : 4.5;
+        el.querySelector('.nm').textContent = `${name} · ${hex(fg)} on ${hex(bg)}`;
+        el.querySelector('.rt').innerHTML = `${r.toFixed(1)}:1 <span class="ok">${r >= need ? '✓ AA' : '✗ below ' + need}</span>`;
+      });
+    }
+
+    function measureTargets(stage) {
+      const host = stage.querySelector('.js-targets');
+      const items = [
+        ['Button', stage.querySelector('.btn')],
+        ['Menu icon', stage.querySelector('.x-menu')],
+        ['Menu link', stage.querySelector('.x-nav a')],
+        ['Footer link', stage.querySelector('.x-footer ul a')]
+      ];
+      items.forEach(([name, el]) => {
+        const n = document.createElement('div');
+        n.className = 'tt';
+        host.appendChild(n);
+        // The menu is hidden at phone width; measure by showing it for a moment
+        const nav = stage.querySelector('.js-nav');
+        const wasHidden = getComputedStyle(el).display === 'none' || el.offsetHeight === 0;
+        let h = 0, w = 0;
+        if (wasHidden && nav.contains(el)) { nav.classList.add('open'); h = el.offsetHeight; w = el.offsetWidth; nav.classList.remove('open'); }
+        else if (wasHidden) { n.remove(); return; }
+        else { h = el.offsetHeight; w = el.offsetWidth; }
+        const px = Math.round(h);
+        n.innerHTML = `<span class="box" style="width:${Math.max(px, 44)}px;height:${px}px">${px}</span><span><strong>${name}</strong> <span class="meas">${Math.round(w)} × ${px}px ${px >= 44 ? '✓ at least 44' : '✗ too small'}</span></span>`;
+      });
+    }
+
+    function build() {
+      out.innerHTML = '';
+      out.classList.toggle('phone', state.phone);
+      const tracks = state.track === 'all' ? ['kids', 'students', 'pros'] : [state.track];
+      tracks.forEach(t => {
+        const stage = document.createElement('div');
+        stage.className = 'stage' + (state.proj ? ' projector' : '') + (state.taps ? ' show-taps' : '');
+        stage.dataset.track = t;
+        stage.appendChild(tpl.content.cloneNode(true));
+        out.appendChild(stage);
+        stage.querySelector('.js-pill').textContent = META[t].pill;
+        stage.querySelector('.js-title').textContent = META[t].title;
+        stage.querySelector('.js-sub').textContent = META[t].sub;
+        stage.querySelector('.js-hdr-note').textContent = 'Resize or switch to phone width: below 900px wide the menu collapses behind the grid icon (tap it to open).';
+        const btn = stage.querySelector('.js-menu'), nav = stage.querySelector('.js-nav');
+        btn.addEventListener('click', () => { const o = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
+        stage.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+        fillSwatches(stage);
+        measureTargets(stage);
+      });
+    }
+
+    document.querySelectorAll('.ctl-row [data-track]').forEach(b => b.addEventListener('click', () => {
+      state.track = b.dataset.track;
+      document.querySelectorAll('.ctl-row [data-track]').forEach(x => x.setAttribute('aria-pressed', x === b));
+      build();
+    }));
+    [['b-phone', 'phone'], ['b-proj', 'proj'], ['b-taps', 'taps']].forEach(([id, key]) => {
+      const b = document.getElementById(id);
+      b.addEventListener('click', () => { state[key] = !state[key]; b.setAttribute('aria-pressed', state[key]); build(); });
+    });
+    // Optional start state from the link, e.g. index.html#pros,phone,proj,taps
+    location.hash.slice(1).split(',').forEach(k => {
+      if (META[k] || k === 'all') { state.track = k; }
+      else if (k in state) { state[k] = true; }
+    });
+    document.querySelectorAll('.ctl-row button').forEach(b => {
+      if (b.dataset.track) b.setAttribute('aria-pressed', b.dataset.track === state.track);
+      else b.setAttribute('aria-pressed', !!state[{ 'b-phone': 'phone', 'b-proj': 'proj', 'b-taps': 'taps' }[b.id]]);
+    });
+    document.fonts.ready.then(build);
+    build();
+  </script>
+</body>
+</html>
