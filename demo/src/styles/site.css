@@ -15,6 +15,7 @@ h1,
 h2,
 h3 {
   font-family: var(--font-head);
+  font-weight: var(--head-weight);
   line-height: 1.2;
 }
 a {
@@ -27,41 +28,15 @@ a {
   flex-direction: column;
   background: var(--bg);
   color: var(--text);
+  font-size: var(--base-size);
 }
 
-/* Buttons and cards */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-height: var(--tap-min);
-  padding: 0 18px;
-  line-height: 1;
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--accent);
-  color: var(--accent-text);
-  font: inherit;
-  font-weight: 700;
-  text-decoration: none;
-  cursor: pointer;
-}
-.btn.secondary {
-  background: transparent;
-  color: var(--accent);
-  border: 2px solid var(--accent);
-}
-.card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 16px;
-}
+/* Buttons, cards, callouts and the notice banner live in components.css */
 
 /* Header and navigation */
 .site-header {
   background: var(--card);
-  border-bottom: 3px solid var(--accent2);
+  border-bottom: 4px solid var(--accent2);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -337,16 +312,6 @@ main {
   height: 22px;
   flex: none;
 }
-.zone-pill {
-  display: inline-block;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background: var(--accent2);
-  color: var(--accent2-text);
-  font-weight: 700;
-  font-size: 0.8rem;
-}
-
 /* Footer */
 .site-footer {
   background: var(--card);
@@ -372,7 +337,7 @@ main {
 .foot a {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  min-height: 44px;
   color: var(--text);
 }
 .foot a.brand {

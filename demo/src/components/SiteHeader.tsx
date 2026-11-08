@@ -3,11 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { aboutLink, bookLink, navGroups } from "@/lib/nav";
+import { useEffect, useId, useRef, useState } from "react";
+import Nav from "./Nav";
 
 export default function SiteHeader() {
   const pathname = usePathname();
+  const navId = useId();
   // Menu state remembers the page it was opened on, so it closes by itself after navigating
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const [group, setGroup] = useState<{ path: string; label: string } | null>(null);
@@ -31,8 +32,6 @@ export default function SiteHeader() {
     };
   }, []);
 
-  const current = (href: string) => (pathname === href ? "page" : undefined);
-
   return (
     <header className="site-header" ref={headerRef}>
       <div className="bar">
@@ -44,7 +43,7 @@ export default function SiteHeader() {
           className="menu-btn"
           type="button"
           aria-expanded={menuOpen}
-          aria-controls="main-nav"
+          aria-controls={navId}
           aria-label={menuOpen ? "Close menu" : "Menu"}
           onClick={() => setMenuPath(menuOpen ? null : pathname)}
         >
@@ -64,51 +63,13 @@ export default function SiteHeader() {
           </svg>
         </button>
       </div>
-      <nav id="main-nav" className={menuOpen ? "open" : undefined} aria-label="Main">
-        <ul>
-          {navGroups.map((g) => {
-            const open = openGroup === g.label;
-            return (
-              <li key={g.label} className={open ? "has-menu open" : "has-menu"}>
-                <button
-                  className="group-btn"
-                  type="button"
-                  aria-expanded={open}
-                  onClick={() => setGroup(open ? null : { path: pathname, label: g.label })}
-                >
-                  {g.label}{" "}
-                  <span className="caret" aria-hidden="true">
-                    &#9660;
-                  </span>
-                </button>
-                <ul>
-                  {g.links.map((link) => (
-                    <li key={link.href}>
-                      <Link href={link.href} aria-current={current(link.href)}>
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            );
-          })}
-          <li>
-            <Link
-              className="about-link"
-              href={aboutLink.href}
-              aria-current={current(aboutLink.href)}
-            >
-              {aboutLink.label}
-            </Link>
-          </li>
-          <li>
-            <Link className="cta" href={bookLink.href} aria-current={current(bookLink.href)}>
-              {bookLink.label}
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <Nav
+        id={navId}
+        pathname={pathname}
+        open={menuOpen}
+        openGroup={openGroup}
+        onToggleGroup={(label) => setGroup(openGroup === label ? null : { path: pathname, label })}
+      />
     </header>
   );
 }

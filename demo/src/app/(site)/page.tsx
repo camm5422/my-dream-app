@@ -1,4 +1,5 @@
-import Link from "next/link";
+import Button from "@/components/ui/Button";
+import Card, { Pill } from "@/components/ui/Card";
 import { zones } from "@/lib/nav";
 
 export default function HomePage() {
@@ -12,35 +13,23 @@ export default function HomePage() {
           engineer.
         </p>
         <div className="actions">
-          <Link className="btn" href="/book">
-            Book a session
-          </Link>
-          <Link className="btn secondary" href="/learn">
+          <Button href="/book">Book a session</Button>
+          <Button href="/learn" variant="secondary">
             Start learning
-          </Link>
+          </Button>
         </div>
       </div>
       <h2>Pick your zone</h2>
       <div className="grid three">
         {zones.map((z) => (
-          <div className="card" key={z.zone}>
-            <span className="zone-pill">{z.age}</span>
+          <Card key={z.zone}>
+            <Pill>{z.age}</Pill>
             <h3>{z.title}</h3>
             <p>{z.blurb}</p>
-            <Link className="btn btn-go" href={z.href}>
+            <Button href={z.href} arrow>
               Explore
-              <svg className="arrow" viewBox="0 0 24 24" aria-hidden="true">
-                <path
-                  d="M4 12h15M13 5l7 7-7 7"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </Link>
-          </div>
+            </Button>
+          </Card>
         ))}
       </div>
     </>

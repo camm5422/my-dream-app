@@ -1,0 +1,170 @@
+/* Shared components (milestone 02): Button, Card, Pill, Callout, NoticeBanner.
+   Only semantic tokens from tokens.css are used, so every component follows the zone and the projector view. */
+
+/* Keyboard focus ring for everything interactive */
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Button: at least 48px tall. variants: (none) primary, .secondary, .cta */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: var(--tap-min);
+  padding: 0 22px;
+  line-height: 1;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-text);
+  font: inherit;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--btn-shadow);
+}
+.btn.secondary {
+  background: transparent;
+  color: var(--accent);
+}
+.btn.cta {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: var(--accent2-text);
+}
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* Card and pill */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.card h3 {
+  margin: 4px 0 0;
+}
+.card p {
+  margin: 0;
+}
+.card .btn {
+  margin-top: auto;
+  align-self: stretch;
+}
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent2);
+  color: var(--accent2-text);
+  border: 2px solid var(--border);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.label {
+  font-family: var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: var(--label-track);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.meter {
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  background: var(--bg);
+  border: 2px solid var(--muted);
+  overflow: hidden;
+}
+.meter > i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+.stat {
+  font-family: var(--font-head);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+/* Callout: border, icon and a word, so meaning never relies on colour alone */
+.callout {
+  --c: var(--info);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-left: 8px solid var(--c);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+.callout.warn {
+  --c: var(--warn);
+}
+.callout.danger {
+  --c: var(--danger);
+}
+.callout .callout-icon {
+  grid-row: span 2;
+  width: 28px;
+  height: 28px;
+  color: var(--c);
+}
+.callout strong {
+  font-family: var(--font-head);
+}
+.callout p {
+  margin: 0;
+}
+
+/* Notice banner: the "educational, not for design" strip on every lesson and simulator.
+   Yellow on Kids and Students; a dark panel with a yellow outline on Pros. */
+.notice {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  background: var(--lc-sunshine);
+  color: #151515;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+.notice svg {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+[data-track="pros"] .notice {
+  background: var(--card);
+  color: var(--text);
+  border-color: var(--lc-sunshine);
+}
+[data-view="projector"] .notice {
+  background: var(--lc-sunshine);
+  color: #000;
+  border-color: #fff;
+}
+
+/* Thicker outlines on the projector */
+[data-view="projector"] :is(.card, .callout, .site-header, .site-footer) {
+  border-width: 3px;
+}

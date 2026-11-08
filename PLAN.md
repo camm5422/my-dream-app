@@ -75,7 +75,7 @@ Each milestone: mockup first, your approval, then real code, then your confirmat
 |---|---|---|---|---|---|
 | 00 | [Brand and domain](milestones/00-brand-and-domain.md) | [x] | [x] | [x] | [x] |
 | 01 | [Repo and scaffold](milestones/01-repo-and-scaffold.md) | [x] | [x] | [x] | [x] |
-| 02 | [Design system](milestones/02-design-system.md) | [ ] | [ ] | [ ] | [ ] |
+| 02 | [Design system](milestones/02-design-system.md) | [x] | [x] | [x] | [x] |
 | 03 | [Landing and bio](milestones/03-landing-and-bio.md) | [ ] | [ ] | [ ] | [ ] |
 | 04 | [Legal and safety pages](milestones/04-legal-and-safety-pages.md) | [ ] | [ ] | [ ] | [ ] |
 | 05 | [Content pipeline](milestones/05-content-pipeline.md) | [ ] | [ ] | [ ] | [ ] |
