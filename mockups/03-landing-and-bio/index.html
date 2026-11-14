@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>03 Landing and bio</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <style>
+    /* ---------- Review controls (page chrome, not part of the site) ---------- */
+    body { background: #e9edf3; color: var(--lc-ink); }
+    .wrap { max-width: 1200px; }
+    .controls { position: sticky; top: 0; z-index: 30; background: #e9edf3; padding: 8px 0; display: grid; gap: 8px; border-bottom: 1px solid #b9c2d3; }
+    .ctl-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .ctl-row b { font-size: var(--text-sm); min-width: 56px; }
+    .ctl-row button { min-height: var(--tap-min); padding: 0 16px; border: 2px solid var(--lc-teal-deep); border-radius: 14px; background: #fff; color: var(--lc-teal-deep); font: inherit; font-weight: 700; cursor: pointer; }
+    .ctl-row button[aria-pressed="true"] { background: var(--lc-teal-deep); color: #fff; }
+    .review-notes li { margin-bottom: 6px; }
+
+    /* ---------- Stage: one themed copy of a page ---------- */
+    #out { margin: 16px 0 40px; }
+    #out.phone .stage { width: 100%; max-width: 390px; margin-inline: auto; }
+    .stage {
+      container-type: inline-size; container-name: stage;
+      --info: #0b7673; --warn: #8a5200; --danger: #c93a2d;
+      --focus: var(--lc-ink); --border: transparent;
+      --btn-shadow: none; --label-font: var(--font-body); --label-case: none; --label-track: 0;
+      --base-size: 1rem; --head-weight: 700;
+      background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: var(--base-size);
+      border-radius: 20px; overflow: hidden; box-shadow: 0 4px 18px rgba(16, 34, 43, .25);
+    }
+    .stage[data-track="kids"]     { --bg: #fff1c2; --accent: var(--lc-coral-deep); --radius: 28px; --base-size: 1.125rem; --btn-shadow: 0 4px 0 rgba(29, 43, 79, .45); --head-weight: 800; }
+    .stage[data-track="students"] { --bg: #e3f5f4; --radius: 16px; --btn-shadow: 0 3px 0 rgba(11, 118, 115, .55); --label-case: uppercase; --label-track: .06em; }
+    .stage[data-track="pros"]     { --bg: var(--lc-night); --text: #e8f3f2; --muted: #8fb0b3; --accent: var(--lc-sunshine); --accent-text: var(--lc-ink); --card: var(--lc-night-card); --radius: 8px; --info: #5fd1cc; --warn: #ffc531; --danger: #ff8a7c; --focus: var(--lc-sunshine); --border: #2c4b5a; --label-font: var(--font-mono); --label-case: uppercase; --label-track: .08em; --head-weight: 600; }
+
+    .stage h1, .stage h2, .stage h3 { font-family: var(--font-head); font-weight: var(--head-weight); margin: 0; }
+    .stage p { margin: 0; }
+    .stage a { color: var(--accent); }
+    .label { font-family: var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-track); font-size: .75rem; font-weight: 700; color: var(--muted); }
+    .pill { display: inline-block; padding: 2px 10px; border-radius: 999px; background: var(--accent2); color: var(--accent2-text); font-weight: 700; font-size: .8rem; border: 2px solid var(--border); }
+
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: var(--tap-min); padding: 0 22px; line-height: 1; border: 2px solid var(--accent); border-radius: var(--radius); background: var(--accent); color: var(--accent-text) !important; font: inherit; font-family: var(--font-head); font-weight: 700; font-size: 1.05rem; text-decoration: none; cursor: pointer; box-shadow: var(--btn-shadow); }
+    .btn.secondary { background: transparent; color: var(--accent) !important; }
+    .btn.cta { background: var(--accent2); border-color: var(--accent2); color: var(--accent2-text) !important; }
+    .btn:focus-visible, .x-nav a:focus-visible, .x-menu:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+
+    /* Header and footer (same as milestone 02) */
+    .x-header { background: var(--card); border-bottom: 4px solid var(--accent2); }
+    .x-bar { display: flex; align-items: center; gap: 12px; padding: 8px 16px; flex-wrap: wrap; }
+    .x-brand { display: flex; align-items: center; gap: 10px; min-height: 56px; color: var(--text) !important; text-decoration: none; font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+    .x-brand img { width: 44px; height: 44px; }
+    .x-menu { margin-left: auto; width: var(--tap-min); height: var(--tap-min); display: grid; place-items: center; border: 2px solid var(--text); border-radius: var(--radius); background: transparent; color: var(--text); cursor: pointer; }
+    .x-menu svg { width: 24px; height: 24px; fill: currentColor; }
+    .x-nav { display: none; width: 100%; padding: 4px 4px 12px; }
+    .x-nav.open { display: block; }
+    .x-nav ul { list-style: none; margin: 0; padding: 0; }
+    .x-nav .grp { display: block; margin: 8px 12px 0; }
+    .x-nav a { display: flex; align-items: center; min-height: var(--tap-min); padding: 0 12px; border-radius: var(--radius); color: var(--text) !important; text-decoration: none; font-family: var(--font-head); font-weight: 600; }
+    .x-nav a[aria-current="page"] { background: var(--accent); color: var(--accent-text) !important; }
+    .x-nav a.cta { background: var(--accent2); color: var(--accent2-text) !important; justify-content: center; margin-top: 8px; font-weight: 700; }
+    @container stage (min-width: 900px) {
+      .x-menu { display: none; }
+      .x-nav, .x-nav.open { display: block; width: auto; margin-left: auto; padding: 0; }
+      .x-nav ul { display: flex; align-items: center; gap: 4px; }
+      .x-nav .grp { display: none; }
+      .x-nav a.cta { margin: 0 0 0 8px; padding: 0 20px; }
+    }
+    .x-footer { background: var(--card); border-top: 1px solid var(--muted); padding: 20px 16px; display: grid; gap: 12px; }
+    @container stage (min-width: 700px) { .x-footer { grid-template-columns: 2fr 1fr 1fr; padding-inline: 32px; } }
+    .x-footer ul { list-style: none; margin: 0; padding: 0; }
+    .x-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text) !important; }
+    .x-footer .disclaimer { font-size: var(--text-sm); color: var(--muted); }
+
+    /* Page sections */
+    .pg { display: grid; gap: 40px; padding: 24px 16px 40px; max-width: 1100px; margin: 0 auto; }
+    @container stage (min-width: 700px) { .pg { padding: 40px 32px 56px; gap: 56px; } }
+    .sec { display: grid; gap: 16px; }
+    .sec > h2 { font-size: var(--text-xl); }
+    .sec > .lead { color: var(--muted); max-width: 60ch; }
+    .grid { display: grid; gap: 16px; }
+    @container stage (min-width: 700px) { .grid.three { grid-template-columns: repeat(3, 1fr); } .grid.two { grid-template-columns: repeat(2, 1fr); } .grid.four { grid-template-columns: repeat(2, 1fr); } }
+    @container stage (min-width: 1000px) { .grid.four { grid-template-columns: repeat(4, 1fr); } }
+
+    .hero { display: grid; gap: 20px; align-items: center; }
+    @container stage (min-width: 700px) { .hero { grid-template-columns: 1.4fr 1fr; } }
+    .hero h1 { font-size: var(--text-hero); }
+    .hero p.sub { font-size: 1.15em; max-width: 52ch; margin: 8px 0 16px; }
+    .hero .art { display: grid; place-items: center; }
+    .hero .art img { width: min(100%, 120px); height: auto; }
+    @container stage (min-width: 700px) { .hero .art img { width: min(100%, 280px); } }
+    .hero .proof { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; background: var(--card); border: 2px solid var(--border); font-size: var(--text-sm); font-weight: 700; }
+    .chip svg { width: 16px; height: 16px; color: var(--info); flex: none; }
+
+    .card { background: var(--card); border: 2px solid var(--border); border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .card p { color: var(--text); }
+    .card .btn { margin-top: auto; align-self: stretch; }
+    .card .zimg { width: 48px; height: 48px; }
+    @container stage (min-width: 700px) { .card .zimg { width: 72px; height: 72px; } }
+    .card h3 { font-size: var(--text-lg); }
+    .num { font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: var(--accent2); color: var(--accent2-text); }
+
+    /* Bio */
+    .bio { display: grid; gap: 20px; align-items: start; background: var(--card); border: 2px solid var(--border); border-radius: var(--radius); padding: 20px; }
+    @container stage (min-width: 700px) { .bio { grid-template-columns: 220px 1fr; padding: 28px; } }
+    .photo { aspect-ratio: 1; width: 100%; max-width: 140px; border-radius: var(--radius); background: repeating-linear-gradient(45deg, #dfe6ee, #dfe6ee 12px, #cfd8e3 12px, #cfd8e3 24px); display: grid; place-items: center; text-align: center; color: #3b4a6a; font-weight: 700; font-size: .85rem; padding: 12px; border: 2px dashed #7a89a8; }
+    .photo svg { width: 40px; height: 40px; color: #5a678a; }
+    @container stage (min-width: 700px) { .photo { max-width: 220px; } .photo svg { width: 64px; height: 64px; } }
+    .creds { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
+    .creds li { display: flex; gap: 10px; align-items: flex-start; }
+    .creds svg { width: 22px; height: 22px; flex: none; color: var(--info); margin-top: 2px; }
+
+    /* Reassurance block */
+    .reassure { background: var(--card); border: 2px solid var(--border); border-left: 8px solid var(--info); border-radius: var(--radius); padding: 20px; display: grid; gap: 14px; }
+    .reassure ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    @container stage (min-width: 700px) { .reassure ul { grid-template-columns: repeat(2, 1fr); } }
+    .reassure li { display: flex; gap: 10px; align-items: flex-start; }
+    .reassure svg { width: 24px; height: 24px; flex: none; color: var(--info); margin-top: 1px; }
+
+    /* Closing call to action */
+    .closer { background: var(--accent); color: var(--accent-text); border-radius: var(--radius); padding: 28px 20px; display: grid; gap: 12px; justify-items: start; border: 2px solid var(--border); }
+    .closer h2 { font-size: var(--text-xl); color: inherit; }
+    .closer .btn { background: var(--accent2); border-color: var(--accent2); color: var(--accent2-text) !important; }
+    .closer .btn.secondary { background: transparent; border-color: currentColor; color: var(--accent-text) !important; }
+
+    .notice { display: flex; gap: 12px; align-items: flex-start; background: var(--lc-sunshine); color: #151515; border-radius: var(--radius); padding: 12px 16px; border: 2px solid var(--border); font-weight: 600; font-size: var(--text-sm); }
+    .notice svg { flex: none; width: 24px; height: 24px; }
+    .stage[data-track="pros"] .notice { background: var(--card); color: var(--text); border: 2px solid var(--lc-sunshine); }
+
+    /* Pros: readout strip */
+    .readout { display: grid; gap: 8px; font-family: var(--font-mono); font-size: .85rem; background: var(--bg); border: 2px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+    .readout span { color: var(--muted); }
+    .readout b { color: var(--accent); }
+
+    /* Placeholder markers: what the owner still has to supply */
+    .need { display: inline-block; font-size: .72rem; line-height: 1.3; font-weight: 800; letter-spacing: .02em; padding: 2px 8px; border-radius: 6px; background: #fff3b0; color: #5a4300 !important; border: 2px dashed #b78a00; font-family: var(--font-body); text-transform: none; vertical-align: middle; }
+    .hide-need .need { display: none; }
+    .page-note { margin: 0 0 12px; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="badge">Milestone 03 · Phase A mockup</p>
+    <h1>Landing and bio</h1>
+    <p>Five pages: Home, About, and the three zone landing pages. Use the controls to switch page and width. <span class="need">NEED FROM YOU</span> tags mark wording or material I cannot invent (bio, credentials, photo, real session details). All text and numbers here are placeholders. Nothing is a claim about you until you supply it.</p>
+
+    <section class="controls" aria-label="Preview controls">
+      <div class="ctl-row" role="group" aria-label="Page">
+        <b>Page</b>
+        <button data-page="home">Home</button>
+        <button data-page="about">About</button>
+        <button data-page="kids">Kids</button>
+        <button data-page="students">Students</button>
+        <button data-page="pros">Pros</button>
+      </div>
+      <div class="ctl-row">
+        <b>View</b>
+        <button id="b-phone" aria-pressed="false">Phone width (390)</button>
+        <button id="b-need" aria-pressed="true">Show "NEED FROM YOU" tags</button>
+      </div>
+    </section>
+
+    <div id="out"></div>
+
+    <section class="review-notes">
+      <h2>What each page is for</h2>
+      <table style="border-collapse:collapse;width:100%;font-size:var(--text-sm)">
+        <tr><th style="text-align:left">Page</th><th style="text-align:left">Main job</th><th style="text-align:left">Main action</th></tr>
+        <tr><td>Home</td><td>Explain the offer in one screen, show who is behind it, point to the right zone</td><td>Book a session / Try a free activity</td></tr>
+        <tr><td>About</td><td>Build trust with parents and schools: who you are, credentials, how content is kept safe and public</td><td>Book a session</td></tr>
+        <tr><td>Kids</td><td>Playful entry for 8-11, with a clear note for parents</td><td>Try a free activity</td></tr>
+        <tr><td>Students</td><td>Challenge-led entry for 12-15</td><td>Try a free activity</td></tr>
+        <tr><td>Pros</td><td>Calm, precise entry for 16+ and early career</td><td>Browse topics</td></tr>
+      </table>
+
+      <h2 style="margin-top:24px">Please confirm at Gate 1</h2>
+      <ol>
+        <li><strong>Home order:</strong> hero, pick your zone, what you can do, meet your engineer, for parents and teachers, closing call to action. OK, or reorder?</li>
+        <li><strong>Booking link in under a minute:</strong> "Book a session" appears in the header on every page, in the home hero, and in the closing block. Enough, or too many?</li>
+        <li><strong>Free activities:</strong> the "Try a free activity" buttons point to <code>/play</code> and <code>/learn</code>, which are still placeholders until milestones 07-10. Until then the real buttons would read "Coming soon" or be hidden. Which do you prefer?</li>
+        <li><strong>Photo:</strong> a real photo of you on About and as a small badge on Home, or an illustration of you and Cori instead? Photos of you build more trust, but the choice is yours.</li>
+        <li><strong>Credentials wording:</strong> I have left placeholders for qualifications, years of experience and chartered status. Please send the wording you want. I will not state employer, project or site names unless you ask. See the confidentiality note on About.</li>
+        <li><strong>Prices:</strong> none shown. Booking and prices come in milestone 06. OK for the landing pages to say only "Sessions for individuals, families and schools"?</li>
+        <li><strong>Reassurance block:</strong> "no accounts, no personal data, public sources only, free to learn". All true today. The classroom nickname wording stays out until milestone 12 and the consent question is settled.</li>
+      </ol>
+      <p class="mock-note">Not on these pages because they belong to later milestones: lesson list (05, 07-08), booking calendar and prices (06), classroom join screen (12), sources and privacy text (04).</p>
+    </section>
+  </main>
+
+  <script>
+    const B = '../../demo/public/brand/';
+    const ICON = {
+      check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 5 5L20 6"/></svg>',
+      shield: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>',
+      info: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.01"/></svg>',
+      person: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>',
+      arrow: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>'
+    };
+    const NEED = t => `<span class="need">NEED FROM YOU: ${t}</span>`;
+    const ZONE_ART = { kids: B + 'mascot-cori.svg', students: B + 'zone-students.svg', pros: B + 'zone-pros.svg' };
+
+    function header(current) {
+      const a = (label, k) => `<li><a href="#" data-go="${k}"${current === k ? ' aria-current="page"' : ''}>${label}</a></li>`;
+      return `<header class="x-header"><div class="x-bar">
+        <a class="x-brand" href="#" data-go="home"><img src="${B}logo-mark.svg" alt="">Littlecore</a>
+        <button class="x-menu js-menu" aria-expanded="false" aria-label="Open menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h4v4H3zM10 3h4v4h-4zM17 3h4v4h-4zM3 10h4v4H3zM10 10h4v4h-4zM17 10h4v4h-4zM3 17h4v4H3zM10 17h4v4h-4zM17 17h4v4h-4z"/></svg></button>
+        <nav class="x-nav js-nav" aria-label="Main"><ul>
+          <li class="grp label">Learn by age</li>${a('Kids 8-11', 'kids')}${a('Students 12-15', 'students')}${a('Pros 16+', 'pros')}
+          <li class="grp label">Explore</li><li><a href="#">Lessons</a></li><li><a href="#">Play</a></li>${a('About', 'about')}
+          <li><a class="cta" href="#">Book a session</a></li>
+        </ul></nav></div></header>`;
+    }
+    const footer = () => `<footer class="x-footer">
+      <div><a class="x-brand" href="#" data-go="home" style="font-size:1.4rem"><img src="${B}logo-mark.svg" alt="">Littlecore</a>
+        <p class="disclaimer">Big power from a little core. Educational, not for design. Public sources only.</p></div>
+      <ul><li class="label">Learn</li><li><a href="#">Lessons</a></li><li><a href="#">Play</a></li><li><a href="#">Classroom</a></li><li><a href="#">Book a session</a></li></ul>
+      <ul><li class="label">About</li><li><a href="#" data-go="about">About</a></li><li><a href="#">Sources</a></li><li><a href="#">Privacy</a></li></ul>
+    </footer>`;
+    const notice = () => `<div class="notice" role="note">${ICON.info}<span>Educational, not for design. Simplified and illustrative, using public sources only.</span></div>`;
+
+    const zoneCards = () => [
+      ['kids', '8-11', 'Kids zone', 'Meet Cori and explore how electricity and power plants work through stories and cause and effect.'],
+      ['students', '12-15', 'Students zone', 'Take on game-like challenges and earn badges while learning real units, like volts and hertz.'],
+      ['pros', '16+', 'Pros zone', 'Control-room style deep dives into instrumentation and control, IAEA and IEC standards, and regulators.']
+    ].map(([k, age, t, p]) => `<article class="card"><img class="zimg" src="${ZONE_ART[k]}" alt=""><span class="pill">${age}</span><h3>${t}</h3><p>${p}</p><a class="btn" href="#" data-go="${k}">Explore ${ICON.arrow}</a></article>`).join('');
+
+    const reassure = (who) => `<section class="sec"><h2>${who}</h2>
+      <div class="reassure"><ul>
+        <li>${ICON.shield}<span><strong>No accounts.</strong> Nobody signs up. Progress is saved only on the child's own device.</span></li>
+        <li>${ICON.shield}<span><strong>No personal data collected</strong> by the learning pages. No tracking of children.</span></li>
+        <li>${ICON.check}<span><strong>Public sources only.</strong> Content is based on open publications and generic designs. See <a href="#">Sources</a>.</span></li>
+        <li>${ICON.check}<span><strong>Free to learn.</strong> Lessons and games cost nothing. You pay only for live sessions and kits.</span></li>
+      </ul>
+      <p>${NEED('one or two lines on safeguarding and any background checks you hold, if relevant')}</p></div></section>`;
+
+    const closer = (title, text, primary, second) => `<section class="closer"><h2>${title}</h2><p>${text}</p>
+      <div class="row"><a class="btn" href="#">${primary}</a>${second ? `<a class="btn secondary" href="#">${second}</a>` : ''}</div></section>`;
+
+    const bioTeaser = () => `<section class="sec"><h2>Meet your engineer</h2>
+      <div class="bio"><div><div class="photo">${ICON.person}<span>Placeholder photo<br>${NEED('your photo')}</span></div></div>
+        <div style="display:grid;gap:12px">
+          <h3 style="font-size:var(--text-lg)">Hi, I am ${NEED('your name')}</h3>
+          <p>I am a senior electrical engineer who works on small modular reactors. I built Littlecore to make electricity, grids and SMRs clear and fun for young people, using only public information. ${NEED('2-3 sentences in your own words')}</p>
+          <ul class="creds">
+            <li>${ICON.check}<span>${NEED('qualification, e.g. degree and awarding body')}</span></li>
+            <li>${ICON.check}<span>${NEED('years working in power or nuclear')}</span></li>
+            <li>${ICON.check}<span>${NEED('professional membership or chartered status, if any')}</span></li>
+          </ul>
+          <div class="row"><a class="btn secondary" href="#" data-go="about">More about me</a></div>
+        </div></div></section>`;
+
+    const PAGES = {
+      home: {
+        track: '', title: 'Home', route: '/',
+        body: () => `
+          <section class="hero"><div>
+            <span class="pill">Free to learn · Live sessions to book</span>
+            <h1 style="margin-top:10px">Big power from a little core.</h1>
+            <p class="sub">Learn how electricity, grids and small modular reactors work, from a senior electrical engineer.</p>
+            <div class="row"><a class="btn cta" href="#">Book a session</a><a class="btn secondary" href="#">Try a free activity</a></div>
+            <div class="proof"><span class="chip">${ICON.check}Ages 8 to 18+</span><span class="chip">${ICON.check}No sign-up</span><span class="chip">${ICON.check}Works on any phone</span></div>
+          </div><div class="art"><img src="${B}mascot-cori.svg" alt="Cori the Littlecore mascot, a hard-hatted reactor dome"></div></section>
+
+          <section class="sec"><h2>Pick your zone</h2><p class="lead">Three zones, one for each age. Same real science, told in the way that suits you.</p><div class="grid three">${zoneCards()}</div></section>
+
+          <section class="sec"><h2>What you can do here</h2><div class="grid four">
+            <article class="card"><span class="num">1</span><h3>Learn for free</h3><p>Short lessons on how electricity and grids work, and how an SMR makes power.</p></article>
+            <article class="card"><span class="num">2</span><h3>Play and test</h3><p>Games, quizzes and simulators with badges saved on your device.</p></article>
+            <article class="card"><span class="num">3</span><h3>Book a live session</h3><p>Talk with the engineer, one to one, as a family or as a school group.</p></article>
+            <article class="card"><span class="num">4</span><h3>Hands-on kits</h3><p>Build and test circuits yourself. <span class="label">Coming later</span></p></article>
+          </div></section>
+
+          ${bioTeaser()}
+          ${reassure('For parents and teachers')}
+          ${closer('Ready to switch on?', 'Sessions for individuals, families and schools. Free activities are always open.', 'Book a session', 'Try a free activity')}
+          ${notice()}`
+      },
+      about: {
+        track: '', title: 'About', route: '/about',
+        body: () => `
+          <section class="sec"><span class="pill">About</span><h1 style="font-size:var(--text-hero)">Why Littlecore exists</h1>
+            <p class="lead">${NEED('your story in 3-4 short sentences: why you teach, what you wish you had known at 12')}</p></section>
+
+          <section class="sec"><div class="bio"><div><div class="photo">${ICON.person}<span>Placeholder photo<br>${NEED('your photo')}</span></div></div>
+            <div style="display:grid;gap:12px">
+              <h2 style="font-size:var(--text-xl)">${NEED('your name')}, senior electrical engineer</h2>
+              <p>${NEED('full bio, 120-200 words, plain language, no employer or project names unless you choose')}</p>
+              <h3 style="font-size:var(--text-lg)">Background</h3>
+              <ul class="creds">
+                <li>${ICON.check}<span>${NEED('degree and university')}</span></li>
+                <li>${ICON.check}<span>${NEED('professional body and status, e.g. chartered')}</span></li>
+                <li>${ICON.check}<span>${NEED('years in power, nuclear or SMRs, in general terms')}</span></li>
+                <li>${ICON.check}<span>${NEED('countries worked in, if you want them shown')}</span></li>
+              </ul>
+            </div></div></section>
+
+          <section class="sec"><h2>What a session looks like</h2><div class="grid three">
+            <article class="card"><span class="num">1</span><h3>Hello and goals</h3><p>We agree what the learner wants to understand. ${NEED('typical length')}</p></article>
+            <article class="card"><span class="num">2</span><h3>Explain and explore</h3><p>Short explanations, live demos and questions, matched to the learner's age.</p></article>
+            <article class="card"><span class="num">3</span><h3>Take-away</h3><p>A short summary and a free activity to try next. ${NEED('anything else you provide')}</p></article>
+          </div></section>
+
+          <section class="sec"><h2>How I keep Littlecore safe and honest</h2>
+            <div class="grid two">
+              <div class="callout" style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--card);border:2px solid var(--border);border-left:8px solid var(--info);border-radius:var(--radius);padding:14px 16px">
+                <span style="grid-row:span 2;width:28px;height:28px;color:var(--info)">${ICON.shield}</span><strong style="font-family:var(--font-head)">Public sources only</strong>
+                <p>Everything here comes from open publications, such as IAEA public documents, and generic designs. <a href="#">See the sources</a>.</p></div>
+              <div class="callout" style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--card);border:2px solid var(--border);border-left:8px solid var(--info);border-radius:var(--radius);padding:14px 16px">
+                <span style="grid-row:span 2;width:28px;height:28px;color:var(--info)">${ICON.info}</span><strong style="font-family:var(--font-head)">Personal project</strong>
+                <p>Littlecore is my own education project. It does not speak for any employer. ${NEED('confirm wording that fits your employment terms')}</p></div>
+            </div></section>
+
+          ${reassure('For parents and teachers')}
+          ${closer('Want to learn with me?', 'Choose a time that suits you and tell me what you would like to cover.', 'Book a session')}
+          ${notice()}`
+      },
+      kids: {
+        track: 'kids', title: 'Kids', route: '/kids',
+        body: () => `
+          <section class="hero"><div>
+            <span class="pill">Kids zone · 8-11</span>
+            <h1 style="margin-top:10px">Hi, I am Cori! Let's find out where the zap comes from.</h1>
+            <p class="sub">Press, pull and play your way through electricity, power stations and tiny reactors.</p>
+            <div class="row"><a class="btn" href="#">Try a free activity</a><a class="btn secondary" href="#">Ask a grown-up to book</a></div>
+          </div><div class="art"><img src="${B}mascot-cori.svg" alt="Cori, the hard-hatted reactor dome"></div></section>
+
+          <section class="sec"><h2>Start here</h2><div class="grid three">
+            <article class="card"><span class="pill">Lesson · 8 min</span><h3>What is electricity?</h3><p>Follow a tiny spark from a power station to your lamp.</p><a class="btn" href="#">Let's go ${ICON.arrow}</a></article>
+            <article class="card"><span class="pill">Play</span><h3>Light up the town</h3><p>Switch on houses without making Cori's lights flicker.</p><a class="btn" href="#">Play ${ICON.arrow}</a></article>
+            <article class="card"><span class="pill">Lesson · 6 min</span><h3>What is a little core?</h3><p>See how a small reactor boils water to make power.</p><a class="btn" href="#">Let's go ${ICON.arrow}</a></article>
+          </div><p class="label">Placeholder activities. Real ones arrive in milestones 07-10.</p></section>
+
+          <section class="sec"><h2>Safety first</h2>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--card);border:2px solid var(--border);border-left:8px solid var(--danger);border-radius:var(--radius);padding:14px 16px">
+              <span style="grid-row:span 2;width:28px;height:28px;color:var(--danger)">${ICON.shield}</span><strong style="font-family:var(--font-head)">Safety</strong>
+              <p>Never touch wall sockets, wires or batteries without a grown-up. Our games are all on the screen!</p></div></section>
+
+          ${reassure('For parents and carers')}
+          ${closer('Want a live session with the engineer?', 'A friendly, hands-on chat about electricity and power. Grown-ups book, children join.', 'Book a session')}
+          ${notice()}`
+      },
+      students: {
+        track: 'students', title: 'Students', route: '/students',
+        body: () => `
+          <section class="hero"><div>
+            <span class="pill">Students zone · 12-15</span>
+            <h1 style="margin-top:10px">Your mission: keep the city lit.</h1>
+            <p class="sub">Challenges, simulators and real units. Earn badges as you learn how grids and SMRs work.</p>
+            <div class="row"><a class="btn" href="#">Start a challenge</a><a class="btn secondary" href="#">Book a session</a></div>
+          </div><div class="art"><img src="${ZONE_ART.students}" alt="A game controller with a glowing core"></div></section>
+
+          <section class="sec"><h2>Pick a challenge</h2><div class="grid three">
+            <article class="card"><span class="pill">Challenge</span><h3>Hold 50 Hz</h3><p>Match supply to demand for a whole day.</p><div class="meter" style="width:100%;height:14px;border-radius:999px;background:var(--bg);border:2px solid var(--muted);overflow:hidden" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" aria-label="Progress"><i style="display:block;height:100%;width:40%;background:var(--accent)"></i></div><span class="label">40% · saved on this device</span><a class="btn" href="#">Continue</a></article>
+            <article class="card"><span class="pill">Lesson · 10 min</span><h3>Volts, amps and watts</h3><p>Real units, with sums you can check.</p><a class="btn" href="#">Start</a></article>
+            <article class="card"><span class="pill">Badge</span><h3>Frequency Keeper</h3><p>Hold 50 Hz in the simulator to earn it.</p><span class="label">Not earned yet</span><a class="btn secondary" href="#">See badges</a></article>
+          </div><p class="label">Placeholder activities. Real ones arrive in milestones 07-10.</p></section>
+
+          <section class="sec"><h2>Voltage and frequency around the world</h2>
+            <p class="lead">Why does a phone charger from one country need an adapter in another? Explore real figures by country.</p>
+            <div class="row"><a class="btn secondary" href="#">Explore the map</a></div></section>
+
+          ${reassure('For parents and teachers')}
+          ${closer('Learn with the engineer', 'Live sessions for students and school groups.', 'Book a session')}
+          ${notice()}`
+      },
+      pros: {
+        track: 'pros', title: 'Pros', route: '/pros',
+        body: () => `
+          <section class="hero"><div>
+            <span class="label">Pros zone · 16+ and early career</span>
+            <h1 style="margin-top:10px">Frequency holds at 50 Hz while supply matches demand.</h1>
+            <p class="sub">Grid fundamentals, SMR systems and the standards behind them, from public sources, with the references shown.</p>
+            <div class="row"><a class="btn" href="#">Browse topics</a><a class="btn secondary" href="#">Book a session</a></div>
+          </div><div class="art"><img src="${ZONE_ART.pros}" alt="A control-room monitor showing a signal trace"></div></section>
+
+          <div class="readout" aria-label="Example readout (illustrative)"><div><span>GRID FREQ</span> <b>50.00 Hz</b></div><div><span>DEMAND</span> <b>1,240 MW</b></div><div><span>SUPPLY</span> <b>1,240 MW</b></div><div><span>NOTE</span> Illustrative values</div></div>
+
+          <section class="sec"><h2>Topics</h2><div class="grid three">
+            <article class="card"><span class="pill">Available soon</span><h3>Grids and frequency control</h3><p>How grids stay in balance, with real units and standards.</p><a class="btn" href="#">Open ${ICON.arrow}</a></article>
+            <article class="card"><span class="pill">Available soon</span><h3>How an SMR works</h3><p>Core, coolant, steam and turbine, at a generic design level.</p><a class="btn" href="#">Open ${ICON.arrow}</a></article>
+            <article class="card"><span class="pill">Later</span><h3>I&amp;C, standards, regulators</h3><p>Instrumentation and control, IAEA and IEC standards, and regulators by country.</p><a class="btn secondary" href="#">Preview</a></article>
+          </div><p class="label">Placeholder topics. Real ones arrive in milestones 07-08 and 14-15.</p></section>
+
+          <section class="sec"><h2>Sources and limits</h2>
+            <div style="display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--card);border:2px solid var(--border);border-left:8px solid var(--warn);border-radius:var(--radius);padding:14px 16px">
+              <span style="grid-row:span 2;width:28px;height:28px;color:var(--warn)">${ICON.info}</span><strong style="font-family:var(--font-head)">Careful</strong>
+              <p>Content is simplified, uses public sources only, and is not for design. No vendor-specific or export-controlled detail. <a href="#">Read the sources</a>.</p></div></section>
+
+          ${closer('Talk it through with an engineer', 'Mentoring and Q&amp;A sessions for students and early-career engineers.', 'Book a session')}
+          ${notice()}`
+      }
+    };
+
+    const out = document.getElementById('out');
+    const state = { page: 'home', phone: false, need: true };
+
+    function build() {
+      out.innerHTML = '';
+      out.classList.toggle('phone', state.phone);
+      out.classList.toggle('hide-need', !state.need);
+      const p = PAGES[state.page];
+      const stage = document.createElement('div');
+      stage.className = 'stage';
+      if (p.track) stage.dataset.track = p.track;
+      stage.innerHTML = header(state.page) + `<div class="pg">${p.body()}</div>` + footer();
+      out.appendChild(stage);
+      const btn = stage.querySelector('.js-menu'), nav = stage.querySelector('.js-nav');
+      btn.addEventListener('click', () => { const o = nav.classList.toggle('open'); btn.setAttribute('aria-expanded', o); });
+      stage.querySelectorAll('a').forEach(a => a.addEventListener('click', e => {
+        e.preventDefault();
+        if (a.dataset.go) { go(a.dataset.go); window.scrollTo({ top: 0 }); }
+      }));
+      document.querySelectorAll('.ctl-row [data-page]').forEach(b => b.setAttribute('aria-pressed', b.dataset.page === state.page));
+      location.replace('#' + [state.page, state.phone ? 'phone' : '', state.need ? '' : 'noneed'].filter(Boolean).join(','));
+    }
+    function go(k) { state.page = k; build(); }
+
+    document.querySelectorAll('.ctl-row [data-page]').forEach(b => b.addEventListener('click', () => go(b.dataset.page)));
+    document.getElementById('b-phone').addEventListener('click', e => { state.phone = !state.phone; e.currentTarget.setAttribute('aria-pressed', state.phone); build(); });
+    document.getElementById('b-need').addEventListener('click', e => { state.need = !state.need; e.currentTarget.setAttribute('aria-pressed', state.need); build(); });
+
+    // Optional start state, e.g. index.html#about,phone,noneed
+    location.hash.slice(1).split(',').forEach(k => {
+      if (PAGES[k]) state.page = k; else if (k === 'phone') state.phone = true; else if (k === 'noneed') state.need = false;
+    });
+    document.getElementById('b-phone').setAttribute('aria-pressed', state.phone);
+    document.getElementById('b-need').setAttribute('aria-pressed', state.need);
+    build();
+  </script>
+</body>
+</html>

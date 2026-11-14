@@ -5,28 +5,31 @@
 **Goal:** A home page that explains the offer and builds trust.
 
 ## Phase A: Mockup
-- [ ] Create branch `milestone/03-landing-and-bio` from `main`
-- [ ] Build HTML mockups for: home, About/bio, and the three section landing pages (`/kids`, `/students`, `/pros`)
-- [ ] Use placeholder text and a placeholder photo; mark real wording needed from you
-- [ ] Include calls to action ("Book a session", "Try a free activity") and a parent/teacher reassurance block
-- [ ] Show phone and desktop widths
-- [ ] Link from `mockups/index.html`, commit and push
+- [x] Create branch `milestone/03-landing-and-bio` from `main`
+- [x] Build HTML mockups for: home, About/bio, and the three section landing pages (`/kids`, `/students`, `/pros`)
+- [x] Use placeholder text and a placeholder photo; mark real wording needed from you
+- [x] Include calls to action ("Book a session", "Try a free activity") and a parent/teacher reassurance block
+- [x] Show phone and desktop widths
+- [x] Link from `mockups/index.html`
+- [x] Commit and push the mockup
 
 ## Gate 1: Your review of the mockup
-- [ ] You approve layout and structure
+- [x] You approve layout and structure (all seven questions answered; free-activity buttons stay as in the mockup, prices not shown)
 - [ ] You supply the real bio text, credentials and photo (agree wording that respects employer confidentiality)
 
 ## Phase B: Implementation (after Gate 1)
-- [ ] Build home, About and the three section pages in `demo/` using the design system
-- [ ] Add your approved bio, photo and credentials
-- [ ] Wire navigation, footer and call-to-action links
-- [ ] Check page speed on a mid-range Android phone
-- [ ] Update `demo/STATUS.md`
+- [x] Build home, About and the three section pages in `demo/` using the design system
+- [ ] Add your approved bio, photo and credentials (you will send these later: fill in `demo/content/bio.json`; Cori stands in for the photo until then)
+- [x] Wire navigation, footer and call-to-action links
+- [ ] Check page speed on a mid-range Android phone (after the branch preview URL exists)
+- [x] Update `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
-- [ ] You review the preview URL and confirm
-- [ ] Pull request merged into `main` (only after your go-ahead)
-- [ ] Tick this milestone in the PLAN.md index
+- [x] You review the preview URL and confirm (owner gave the go-ahead to merge)
+- [x] Pull request merged into `main` (only after your go-ahead)
+- [x] Tick this milestone in the PLAN.md index
+
+**Carried over (owner's to do, not blocking the merge):** send name, photo, bio, credentials and the employer-independence line for `demo/content/bio.json`; mid-range Android page-speed check on the live site.
 
 ## Done when
 A visitor can understand the offer, learn who you are, and find the booking link in under a minute.

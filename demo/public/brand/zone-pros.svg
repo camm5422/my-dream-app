@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 4 200 200" role="img" aria-label="Pros zone: a control-room monitor showing a signal trace">
+  <g stroke="#1D2B4F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="84" y="138" width="32" height="22" fill="#12A4A0"/>
+    <rect x="58" y="158" width="84" height="14" rx="7" fill="#1D2B4F"/>
+    <rect x="20" y="34" width="160" height="108" rx="16" fill="#12A4A0"/>
+    <rect x="36" y="50" width="128" height="76" rx="8" fill="#10222B"/>
+  </g>
+  <path d="M46 100H70L82 70L100 114L114 84L124 100H154" fill="none" stroke="#FFC531" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="154" cy="136" r="3.5" fill="#FFC531"/>
+</svg>
