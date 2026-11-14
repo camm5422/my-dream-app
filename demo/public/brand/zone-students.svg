@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 10 200 200" role="img" aria-label="Students zone: a game controller with a glowing core">
+  <g stroke="#1D2B4F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M52 62H148C176 62 192 84 192 112C192 140 180 158 162 158C148 158 142 148 136 140H64C58 148 52 158 38 158C20 158 8 140 8 112C8 84 24 62 52 62Z" fill="#12A4A0"/>
+    <path d="M50 90h12v14h14v12H62v14H50v-14H36v-12h14Z" fill="#fff"/>
+    <circle cx="142" cy="96" r="11" fill="#FFC531"/>
+    <circle cx="162" cy="118" r="11" fill="#FF6B5B"/>
+    <circle cx="100" cy="112" r="20" fill="#FFC531"/>
+  </g>
+  <path d="M104 98 92 114h8l-3 14 14-18h-8Z" fill="#1D2B4F"/>
+</svg>

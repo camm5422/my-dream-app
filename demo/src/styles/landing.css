@@ -1,0 +1,273 @@
+/* Landing and bio pages (milestone 03): Home, About and the Kids, Students and Pros zone pages.
+   Semantic tokens only, so every zone and the projector view restyle these automatically. */
+
+.landing {
+  display: grid;
+  gap: 40px;
+}
+.landing-section {
+  display: grid;
+  gap: 16px;
+}
+.landing-section > h2 {
+  font-size: var(--text-xl);
+  margin: 0;
+}
+.landing-section > .lead {
+  color: var(--muted);
+  max-width: 60ch;
+  margin: 0;
+}
+.landing .grid {
+  margin: 0;
+}
+.landing .grid.four {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) {
+  .landing {
+    gap: 56px;
+  }
+  .landing .grid.four {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1000px) {
+  .landing .grid.four {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.landing .actions,
+.closer .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Hero: picture is small on phones so the buttons stay near the top */
+.landing-hero {
+  display: grid;
+  gap: 20px;
+  align-items: center;
+}
+.landing-hero h1 {
+  font-size: var(--text-hero);
+  margin: 10px 0 0;
+}
+.landing-hero .sub {
+  font-size: 1.15em;
+  max-width: 52ch;
+  margin: 8px 0 16px;
+}
+.landing-hero .art {
+  display: grid;
+  place-items: center;
+}
+.landing-hero .art img {
+  width: min(100%, 120px);
+  height: auto;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 2px solid var(--border);
+  font-size: var(--text-sm);
+  font-weight: 700;
+}
+.chip svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--info);
+}
+@media (min-width: 700px) {
+  .landing-hero {
+    grid-template-columns: 1.4fr 1fr;
+  }
+  .landing-hero .art img {
+    width: min(100%, 280px);
+  }
+}
+
+/* Zone card picture */
+.zone-img {
+  width: 48px;
+  height: 48px;
+}
+@media (min-width: 700px) {
+  .zone-img {
+    width: 72px;
+    height: 72px;
+  }
+}
+
+/* Numbered steps on cards */
+.num {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent2);
+  color: var(--accent2-text);
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 1.6rem;
+}
+
+/* Bio */
+.bio {
+  display: grid;
+  gap: 20px;
+  align-items: start;
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.bio-photo img {
+  display: block;
+  width: 100%;
+  max-width: 140px;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius);
+}
+/* Stand-in picture (Cori) is not square, so show all of it instead of cropping */
+.bio-photo img.stand-in {
+  object-fit: contain;
+}
+.bio-text {
+  display: grid;
+  gap: 12px;
+}
+.bio-text > * {
+  margin: 0;
+}
+.creds {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.creds li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.creds svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin-top: 2px;
+  color: var(--info);
+}
+@media (min-width: 700px) {
+  .bio {
+    grid-template-columns: 220px 1fr;
+    padding: 28px;
+  }
+  .bio-photo img {
+    max-width: 220px;
+  }
+}
+
+/* Reassurance block */
+.reassure {
+  background: var(--card);
+  border: 2px solid var(--border);
+  border-left: 8px solid var(--info);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.reassure ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.reassure li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.reassure svg {
+  width: 24px;
+  height: 24px;
+  flex: none;
+  margin-top: 1px;
+  color: var(--info);
+}
+@media (min-width: 700px) {
+  .reassure ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Closing call to action */
+.closer {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+  background: var(--accent);
+  color: var(--accent-text);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 20px;
+}
+.closer h2 {
+  font-size: var(--text-xl);
+}
+.closer p {
+  margin: 0;
+}
+.closer .btn {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: var(--accent2-text);
+}
+/* Pros: accent and highlight are both yellow, so the button flips to ink on the yellow block */
+[data-track="pros"] .closer .btn {
+  background: var(--lc-ink);
+  border-color: var(--lc-ink);
+  color: #fff;
+}
+.closer .btn.secondary {
+  background: transparent;
+  border-color: currentColor;
+  color: var(--accent-text);
+}
+
+/* Pros: illustrative readout */
+.readout {
+  display: grid;
+  gap: 8px;
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+.readout span {
+  color: var(--muted);
+}
+.readout b {
+  color: var(--accent);
+}

@@ -1,0 +1,11 @@
+{
+  "_help": "Owner's bio, used on Home and About. Empty fields are left out of the page. Add text here and the pages update. Keep to public information (no employer, project or site names unless you choose).",
+  "name": "",
+  "photo": "",
+  "photoAlt": "",
+  "summary": "I am a senior electrical engineer who works on small modular reactors. I built Littlecore to make electricity, grids and SMRs clear and fun for young people, using only public information.",
+  "story": "",
+  "bio": "",
+  "credentials": [],
+  "independence": ""
+}

@@ -40,10 +40,20 @@ export const footerLinks: NavLink[][] = [
   ],
 ];
 
-export const zones: { zone: Zone; href: string; age: string; title: string; blurb: string }[] = [
+export const zones: {
+  zone: Zone;
+  href: string;
+  age: string;
+  title: string;
+  blurb: string;
+  art: string;
+  artAlt: string;
+}[] = [
   {
     zone: "kids",
     href: "/kids",
+    art: "/brand/mascot-cori.svg",
+    artAlt: "Cori, the hard-hatted reactor dome mascot",
     age: "8-11",
     title: "Kids zone",
     blurb:
@@ -52,6 +62,8 @@ export const zones: { zone: Zone; href: string; age: string; title: string; blur
   {
     zone: "students",
     href: "/students",
+    art: "/brand/zone-students.svg",
+    artAlt: "A game controller with a glowing core",
     age: "12-15",
     title: "Students zone",
     blurb:
@@ -60,6 +72,8 @@ export const zones: { zone: Zone; href: string; age: string; title: string; blur
   {
     zone: "pros",
     href: "/pros",
+    art: "/brand/zone-pros.svg",
+    artAlt: "A control-room monitor showing a signal trace",
     age: "16+",
     title: "Pros zone",
     blurb:
