@@ -11,7 +11,7 @@
 - [x] Include calls to action ("Book a session", "Try a free activity") and a parent/teacher reassurance block
 - [x] Show phone and desktop widths
 - [x] Link from `mockups/index.html`
-- [ ] Commit and push the mockup (waiting for your go-ahead)
+- [x] Commit and push the mockup
 
 ## Gate 1: Your review of the mockup
 - [x] You approve layout and structure (all seven questions answered; free-activity buttons stay as in the mockup, prices not shown)
