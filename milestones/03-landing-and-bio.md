@@ -25,9 +25,11 @@
 - [x] Update `demo/STATUS.md`
 
 ## Gate 2: Your confirmation and merge
-- [ ] You review the preview URL and confirm
-- [ ] Pull request merged into `main` (only after your go-ahead)
-- [ ] Tick this milestone in the PLAN.md index
+- [x] You review the preview URL and confirm (owner gave the go-ahead to merge)
+- [x] Pull request merged into `main` (only after your go-ahead)
+- [x] Tick this milestone in the PLAN.md index
+
+**Carried over (owner's to do, not blocking the merge):** send name, photo, bio, credentials and the employer-independence line for `demo/content/bio.json`; mid-range Android page-speed check on the live site.
 
 ## Done when
 A visitor can understand the offer, learn who you are, and find the booking link in under a minute.
