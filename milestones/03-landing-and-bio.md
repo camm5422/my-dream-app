@@ -14,7 +14,7 @@
 - [ ] Commit and push the mockup (waiting for your go-ahead)
 
 ## Gate 1: Your review of the mockup
-- [ ] You approve layout and structure
+- [x] You approve layout and structure (all seven questions answered; free-activity buttons stay as in the mockup, prices not shown)
 - [ ] You supply the real bio text, credentials and photo (agree wording that respects employer confidentiality)
 
 ## Phase B: Implementation (after Gate 1)
