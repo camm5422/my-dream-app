@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>04 Legal and safety pages</title>
+  <link rel="stylesheet" href="../assets/base.css">
+  <style>
+    /* ---------- Review controls (page chrome, not part of the site) ---------- */
+    body { background: #e9edf3; color: var(--lc-ink); }
+    .wrap { max-width: 1200px; }
+    .controls { position: sticky; top: 0; z-index: 30; background: #e9edf3; padding: 8px 0; display: grid; gap: 8px; border-bottom: 1px solid #b9c2d3; }
+    .ctl-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .ctl-row b { font-size: var(--text-sm); min-width: 56px; }
+    .ctl-row button { min-height: var(--tap-min); padding: 0 16px; border: 2px solid var(--lc-teal-deep); border-radius: 14px; background: #fff; color: var(--lc-teal-deep); font: inherit; font-weight: 700; cursor: pointer; }
+    .ctl-row button[aria-pressed="true"] { background: var(--lc-teal-deep); color: #fff; }
+    .review-notes li { margin-bottom: 6px; }
+
+    /* ---------- Stage: one themed copy of a page ---------- */
+    #out { margin: 16px 0 40px; }
+    #out.phone .stage { width: 100%; max-width: 390px; margin-inline: auto; }
+    .stage {
+      container-type: inline-size; container-name: stage;
+      --info: #0b7673; --warn: #8a5200; --danger: #c93a2d;
+      --focus: var(--lc-ink); --border: transparent;
+      --base-size: 1rem; --head-weight: 700;
+      background: var(--bg); color: var(--text); font-family: var(--font-body); font-size: var(--base-size);
+      border-radius: 20px; overflow: hidden; box-shadow: 0 4px 18px rgba(16, 34, 43, .25);
+    }
+    .stage h1, .stage h2, .stage h3 { font-family: var(--font-head); font-weight: var(--head-weight); margin: 0; line-height: 1.2; }
+    .stage p { margin: 0; }
+    .stage a { color: var(--accent); }
+    .stage .btn { color: var(--accent-text) !important; }
+
+    .x-header { background: var(--card); border-bottom: 4px solid var(--accent2); }
+    .x-bar { display: flex; align-items: center; gap: 12px; padding: 8px 16px; }
+    .x-brand { display: flex; align-items: center; gap: 10px; min-height: 56px; color: var(--text) !important; text-decoration: none; font-family: var(--font-head); font-weight: 800; font-size: 1.6rem; line-height: 1; }
+    .x-brand img { width: 44px; height: 44px; }
+    .x-footer { background: var(--card); border-top: 1px solid var(--muted); padding: 20px 16px; display: grid; gap: 12px; }
+    @container stage (min-width: 700px) { .x-footer { grid-template-columns: 2fr 1fr 1fr; padding-inline: 32px; } }
+    .x-footer ul { list-style: none; margin: 0; padding: 0; }
+    .x-footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--text) !important; }
+    .x-footer .disclaimer { font-size: var(--text-sm); color: var(--muted); }
+
+    .pg { display: grid; gap: 24px; padding: 24px 16px 40px; max-width: 780px; margin: 0 auto; }
+    @container stage (min-width: 700px) { .pg { padding: 40px 32px 56px; } }
+    .pg h1 { font-size: var(--text-hero); }
+    .pg h2 { font-size: var(--text-xl); margin-top: 8px; }
+    .pg h3 { font-size: var(--text-lg); }
+    .pg ul { margin: 0; padding-left: 1.2rem; display: grid; gap: 6px; }
+    .pg .meta { color: var(--muted); font-size: var(--text-sm); }
+    .pg table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+    .pg th, .pg td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--muted); vertical-align: top; }
+    .toc { background: var(--card); border-radius: var(--radius); padding: 14px 18px; }
+    .toc ol { margin: 6px 0 0; padding-left: 1.2rem; }
+    .toc a { display: inline-flex; min-height: 32px; align-items: center; }
+    .kidsbox { background: var(--card); border: 3px solid var(--info); border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; }
+    .kidsbox h2 { margin: 0 !important; }
+    .draft { border: 2px dashed #b78a00; background: #fff8d6; color: #5a4300; border-radius: 10px; padding: 10px 14px; font-size: var(--text-sm); }
+
+    .notice { display: flex; gap: 12px; align-items: flex-start; background: var(--lc-sunshine); color: #151515; border-radius: var(--radius); padding: 12px 16px; font-weight: 600; font-size: var(--text-sm); }
+    .notice svg { flex: none; width: 24px; height: 24px; }
+    .notice a { color: #151515 !important; text-decoration: underline; }
+    .notice.strip { border-radius: 0; }
+    .notice.big { background: var(--card); color: var(--text); border: 3px solid var(--lc-sunshine); font-weight: 400; font-size: 1rem; padding: 18px 20px; }
+    .notice.big b { font-family: var(--font-head); font-size: var(--text-lg); display: block; margin-bottom: 4px; }
+
+    /* Placeholder markers: what the owner still has to supply */
+    .need { display: inline-block; font-size: .72rem; line-height: 1.3; font-weight: 800; padding: 2px 8px; border-radius: 6px; background: #fff3b0; color: #5a4300 !important; border: 2px dashed #b78a00; font-family: var(--font-body); vertical-align: middle; }
+    .hide-need .need { display: none; }
+
+    /* Placement mockups */
+    .tabs { display: flex; gap: 8px; margin: 12px 0 0; flex-wrap: wrap; }
+    .sim { background: var(--bg); border: 2px solid var(--muted); border-radius: var(--radius); min-height: 180px; display: grid; place-items: center; color: var(--muted); font-weight: 700; text-align: center; padding: 12px; }
+    .sim-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+    .sim-controls span { background: var(--card); border-radius: 999px; padding: 8px 16px; font-weight: 700; }
+    .placement-note { background: #e9edf3; color: var(--lc-ink); padding: 8px 16px; font-size: .8rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <p class="badge">Milestone 04 mockup</p>
+    <h1>Legal and safety pages</h1>
+    <p class="mock-note">Drafts for review. This is not legal advice and has not been checked by a lawyer. Yellow dashed tags <span class="need">NEED: ...</span> mark facts only you can give. Wording is written to be accurate for the site as currently planned (no accounts, no paywall, no tracking).</p>
+
+    <section class="controls" aria-label="Review controls">
+      <div class="ctl-row" role="group" aria-label="Page">
+        <b>Page</b>
+        <button data-page="privacy" aria-pressed="true">Privacy</button>
+        <button data-page="terms" aria-pressed="false">Terms</button>
+        <button data-page="disclaimer" aria-pressed="false">Disclaimer</button>
+        <button data-page="sources" aria-pressed="false">Sources</button>
+        <button data-page="banner" aria-pressed="false">Banner placement</button>
+        <button data-page="facts" aria-pressed="false">Facts needed</button>
+      </div>
+      <div class="ctl-row" role="group" aria-label="Width and zone">
+        <b>View</b>
+        <button data-width="phone" aria-pressed="true">Phone</button>
+        <button data-width="desktop" aria-pressed="false">Desktop</button>
+        <button data-track="students" aria-pressed="true">Students look</button>
+        <button data-track="kids" aria-pressed="false">Kids look</button>
+        <button data-track="pros" aria-pressed="false">Pros look</button>
+        <button id="needtoggle" aria-pressed="true">Show NEED tags</button>
+      </div>
+    </section>
+
+    <ol class="review-notes">
+      <li>Privacy, Terms, Disclaimer and Sources are shown inside the real site frame (header and footer). Use the buttons to switch page, width and zone look.</li>
+      <li>"Banner placement" shows where the "educational, not for design" notice sits on a lesson and on a simulator.</li>
+      <li>"Facts needed" lists what I need from you before the wording can be final.</li>
+    </ol>
+
+    <div id="out" class="phone"></div>
+  </main>
+
+  <!-- ===================== Templates ===================== -->
+  <template id="frame">
+    <div class="stage" data-slot="stage">
+      <header class="x-header"><div class="x-bar">
+        <a class="x-brand" href="#"><img src="../../demo/public/brand/logo-mark.svg" alt="" onerror="this.style.display='none'">Littlecore</a>
+      </div></header>
+      <div data-slot="body"></div>
+      <footer class="x-footer">
+        <div><b>Littlecore</b><p class="disclaimer">Educational, not for design. Simplified and illustrative, using public sources only.</p></div>
+        <ul><li><a href="#">About</a></li><li><a href="#">Book a session</a></li><li><a href="#">Sources</a></li></ul>
+        <ul><li><a href="#">Privacy</a></li><li><a href="#">Terms</a></li><li><a href="#">Disclaimer</a></li></ul>
+      </footer>
+    </div>
+  </template>
+
+  <template id="icon-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 11v6M12 7.5v.01"/></svg></template>
+
+  <template id="p-privacy">
+    <article class="pg">
+      <p class="draft">DRAFT for review. Not legal advice.</p>
+      <h1>Privacy</h1>
+      <p class="meta">Last updated: <span class="need">NEED: date of publication</span></p>
+      <p>The short version: <b>Littlecore does not ask you to sign up, and we do not collect your name, email or any account details when you learn on this site.</b> Here is the detail.</p>
+
+      <nav class="toc" aria-label="On this page"><b>On this page</b>
+        <ol><li><a href="#kids-privacy">For children (plain language)</a></li><li><a href="#what">What we collect</a></li><li><a href="#device">What stays on your device</a></li><li><a href="#third">Other services we use</a></li><li><a href="#classroom">Classroom mode</a></li><li><a href="#rights">Your rights and contact</a></li></ol>
+      </nav>
+
+      <section class="kidsbox" id="kids-privacy">
+        <h2>For children</h2>
+        <p>Hi! Here is how we look after you on Littlecore.</p>
+        <ul>
+          <li>You do not need to tell us your name, age or where you live.</li>
+          <li>Never type your real name, school, phone number or address into this site. If a game asks for a nickname, make one up.</li>
+          <li>Your badges and scores are saved on your own phone or computer. We cannot see them.</li>
+          <li>If you want to book a session, ask a parent or teacher to do it.</li>
+          <li>If something on the site makes you feel odd or worried, tell a grown-up you trust.</li>
+        </ul>
+      </section>
+
+      <h2 id="what">What we collect</h2>
+      <ul>
+        <li><b>Learning pages and activities:</b> nothing personal. There are no accounts and no sign-up forms.</li>
+        <li><b>Technical logs:</b> our hosting provider (Vercel) keeps standard server logs, such as IP address, browser type and the page requested, for security and to keep the site running. We do not use these to identify visitors.</li>
+        <li><b>Booking and payment:</b> if an adult books a session, the booking service and payment provider collect the details needed to make the booking (name, email, payment). See "Other services".</li>
+        <li><b>Visitor statistics:</b> <span class="need">DECISION: none at launch, or a privacy-friendly counter without cookies (milestone 18)?</span> We will update this page before any is switched on.</li>
+      </ul>
+
+      <h2 id="device">What stays on your device</h2>
+      <p>Progress, badges and settings are saved in your browser's local storage on your own device. They never reach our servers. You can clear them at any time by clearing your browser's site data. Using a different device or browser starts you fresh.</p>
+
+      <h2 id="third">Other services we use</h2>
+      <table>
+        <thead><tr><th>Service</th><th>Used for</th><th>What they receive</th></tr></thead>
+        <tbody>
+          <tr><td>Vercel</td><td>Hosting the website</td><td>Technical logs (IP address, browser, page)</td></tr>
+          <tr><td><span class="need">NEED: Cal.com or Calendly</span></td><td>Booking a session</td><td>Name, email, chosen time, any notes you type</td></tr>
+          <tr><td>Stripe <span class="need">NEED: plus local payment methods</span></td><td>Taking payment</td><td>Payment details, handled by the provider, not stored by us</td></tr>
+        </tbody>
+      </table>
+      <p>Each service has its own privacy policy. Please read it before you book. Bookings should be made by an adult.</p>
+
+      <h2 id="classroom">Classroom mode</h2>
+      <p>When classroom mode is available, pupils join a session with a short room code and a nickname. We do not ask for real names, ages or contact details, and we ask teachers to tell pupils to use a made-up nickname. Session data is deleted when the session ends. <span class="need">DECISION: do target countries need parental consent for nicknames? Needs your answer plus a professional check.</span></p>
+
+      <h2 id="rights">Your rights and contact</h2>
+      <p>If we hold personal information about you (for example from a booking you made with us directly), you can ask us to show you, correct or delete it. Contact <span class="need">NEED: contact email</span>. <span class="need">NEED: base country, so the right law is named here (e.g. PDPA, APPI, PIPA, GDPR)</span></p>
+      <p class="meta">Controller: <span class="need">NEED: business name and country</span></p>
+    </article>
+  </template>
+
+  <template id="p-terms">
+    <article class="pg">
+      <p class="draft">DRAFT for review. Not legal advice. Every figure in yellow is a placeholder suggestion that you decide.</p>
+      <h1>Terms</h1>
+      <p class="meta">Last updated: <span class="need">NEED: date</span></p>
+      <h2>Using the site</h2>
+      <p>The learning content on Littlecore is free to read and use for personal learning and for teaching in a classroom. Please do not copy it to sell, or present it as your own. Content is educational only (see the <a href="#">Disclaimer</a>).</p>
+
+      <h2>Bookings</h2>
+      <ul>
+        <li>Sessions are booked through our booking page. A booking is confirmed when you receive a confirmation email.</li>
+        <li>Anyone under 18 must have a parent, guardian or teacher make the booking.</li>
+        <li>Online sessions need a stable internet connection and a device with a camera and microphone, unless we agree otherwise.</li>
+        <li>For in-person school or group sessions we agree dates, group size, location and safeguarding arrangements with the school or organiser first.</li>
+        <li>Prices are shown on the booking page in <span class="need">NEED: currency</span>. Schools and groups can ask for an invoice.</li>
+      </ul>
+
+      <h2>Cancellations and refunds</h2>
+      <table>
+        <thead><tr><th>When you cancel</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr><td>More than <span class="need">48 hours</span> before the session</td><td>Full refund, or move to another date free of charge</td></tr>
+          <tr><td>Between <span class="need">48 and 24 hours</span> before</td><td><span class="need">50% refund</span> or one free reschedule</td></tr>
+          <tr><td>Less than <span class="need">24 hours</span> before, or no-show</td><td><span class="need">No refund</span></td></tr>
+          <tr><td>We cancel (illness, technical failure, safety)</td><td>Full refund or a new date of your choice</td></tr>
+        </tbody>
+      </table>
+      <p>Refunds go back to the original payment method and may take <span class="need">5 to 10 working days</span>. Consumer law in your country may give you extra rights, and those are not affected by these terms.</p>
+
+      <h2>Hands-on kits</h2>
+      <p>Kits are not on sale yet. Kit terms (age guidance, supervision, returns) will be added before the first sale. Kits are for supervised educational use.</p>
+
+      <h2>Safety in sessions</h2>
+      <p>Sessions with children follow our safeguarding rules: <span class="need">NEED: confirm approach, e.g. two adults present or a parent/teacher in the room, no private messaging with pupils, no recording without consent</span>.</p>
+
+      <h2>Limits and changes</h2>
+      <p>We do our best to keep content accurate but make no promise it is complete or error-free. To the extent the law allows, we are not responsible for losses from relying on the content. We may update these terms; the date above shows the latest version.</p>
+      <p class="meta">Governing law: <span class="need">NEED: base country</span> · Provider: <span class="need">NEED: business name</span> · Contact: <span class="need">NEED: email</span></p>
+    </article>
+  </template>
+
+  <template id="p-disclaimer">
+    <article class="pg">
+      <p class="draft">DRAFT for review.</p>
+      <h1>Educational, not for design</h1>
+      <div class="notice big"><b>The short version</b>Everything on Littlecore is for learning. It is simplified and illustrative, built from public sources. It must not be used to design, build, operate, license or assess any real plant, grid or electrical installation.</div>
+
+      <h2>What this means</h2>
+      <ul>
+        <li><b>Simplified:</b> real systems are far more complex. Lessons, diagrams and simulators leave out detail on purpose.</li>
+        <li><b>Illustrative:</b> numbers in simulators show how things behave in general. They are not data for any specific reactor design or site.</li>
+        <li><b>Generic designs only:</b> we describe general ideas about small modular reactors. We do not describe any vendor's product in detail.</li>
+        <li><b>Public sources only:</b> content comes from open publications, such as those listed on the <a href="#">Sources</a> page.</li>
+      </ul>
+
+      <h2>Not professional advice</h2>
+      <p>Nothing here is engineering, safety, legal or regulatory advice. Use qualified engineers and the rules of your own country and regulator for any real work.</p>
+
+      <h2>Independence</h2>
+      <p>Littlecore is run independently. Views and content are not those of any employer or organisation. <span class="need">NEED: your approved employer-independence wording (also needed for the About page)</span></p>
+
+      <h2>Electrical safety</h2>
+      <p>Never experiment with mains electricity, batteries or electrical equipment without an adult who knows how to do it safely. Kids' activities use only low-voltage kits or on-screen simulations.</p>
+
+      <h2>Spot a mistake?</h2>
+      <p>Tell us at <span class="need">NEED: contact email</span> and we will check and correct it.</p>
+    </article>
+  </template>
+
+  <template id="p-sources">
+    <article class="pg">
+      <p class="draft">DRAFT. The list below is an example of the layout, filled from <code>demo/content/data/sources.json</code>. Entries are placeholders until each link is checked.</p>
+      <h1>Sources</h1>
+      <p>Littlecore uses public sources only. Each lesson lists the sources it draws on. Here is the full list. Nothing on this site comes from an employer, a vendor's private documents or anything under export control.</p>
+
+      <h2>International bodies</h2>
+      <table>
+        <thead><tr><th>Source</th><th>Used in</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#">IAEA: Power Reactor Information System (PRIS)</a></td><td>SMR basics</td><td>Public reactor statistics <span class="need">verify link</span></td></tr>
+          <tr><td><a href="#">IAEA: small modular reactor booklet series</a></td><td>SMR basics, simulator</td><td>Open publication <span class="need">verify title and link</span></td></tr>
+          <tr><td><a href="#">IAEA Safety Standards (public)</a></td><td>Standards <i>(later)</i></td><td>Open access</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Grids and electricity</h2>
+      <table>
+        <thead><tr><th>Source</th><th>Used in</th><th>Note</th></tr></thead>
+        <tbody>
+          <tr><td><a href="#">Voltage and frequency by country</a></td><td>Grids lesson</td><td><span class="need">NEED: choose the public data source</span></td></tr>
+          <tr><td><a href="#">National grid operator websites</a></td><td>Grids lesson</td><td>One link per country</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Reporting a problem</h2>
+      <p>If you think anything here is wrong, out of date or should not be public, tell us at <span class="need">NEED: contact email</span> and we will review it promptly.</p>
+      <p class="meta">Each source row carries: title, publisher, link, date checked, and the lessons that use it.</p>
+    </article>
+  </template>
+
+  <template id="p-banner">
+    <article class="pg" style="max-width:none;padding-inline:0;gap:0">
+      <div class="placement-note">1. Lesson page: banner under the title, before the content. Footer repeats the short line on every page.</div>
+      <div class="pg" style="gap:16px">
+        <p class="meta">Lesson · How a grid works</p>
+        <h1>Why the lights stay on</h1>
+        <div class="notice" role="note"><span data-icon></span><span>Educational, not for design. Simplified and illustrative, using public sources only. <a href="#">Read more</a></span></div>
+        <p>Lesson text starts here. Electricity travels from power stations to your home through a grid of wires and transformers...</p>
+      </div>
+
+      <div class="placement-note">2. Simulator page: banner above the simulator, and a short reminder stays attached under it so it is visible while playing.</div>
+      <div class="pg" style="gap:16px">
+        <p class="meta">Play · SMR simulator</p>
+        <h1>Run a small reactor</h1>
+        <div class="notice" role="note"><span data-icon></span><span><b>Illustrative simulator.</b> Not a model of any real reactor. Not for design. <a href="#">Read more</a></span></div>
+        <div class="sim">Simulator area (fake)</div>
+        <div class="sim-controls"><span>Power</span><span>Control rods</span><span>Pump</span></div>
+        <div class="notice strip" role="note"><span data-icon></span><span>Illustrative only. Numbers are not real plant data.</span></div>
+      </div>
+
+      <div class="placement-note">3. Pros zone, deeper tier: a stronger version, because readers may be tempted to use the numbers.</div>
+      <div class="pg" style="gap:16px">
+        <p class="meta">Pros · Simulator, deeper tier</p>
+        <div class="notice big" role="note"><b>Educational model, not for design</b>Simplified physics with generic parameters from public sources. It must not be used for design, safety analysis, licensing or operations. <a href="#">Read the full disclaimer</a></div>
+      </div>
+    </article>
+  </template>
+
+  <template id="p-facts">
+    <article class="pg">
+      <h1>Facts I need from you</h1>
+      <p>None of these block approval of the layout. They block the <b>final wording</b>. Until you answer, drafts keep a yellow tag.</p>
+      <table>
+        <thead><tr><th>#</th><th>Question</th><th>Why it matters</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Business name and legal form (or your own name as a sole trader)</td><td>Named as "controller" and "provider"</td></tr>
+          <tr><td>2</td><td>Base country</td><td>Decides which privacy law, consumer law and governing law apply</td></tr>
+          <tr><td>3</td><td>Contact email for privacy and corrections</td><td>Required on privacy, terms and disclaimer</td></tr>
+          <tr><td>4</td><td>Booking tool (Cal.com or Calendly) and payment providers</td><td>Must be named in Privacy</td></tr>
+          <tr><td>5</td><td>Cancellation and refund rules (48/24 hours, 50%, refund time)</td><td>Terms table uses my guesses</td></tr>
+          <tr><td>6</td><td>Visitor statistics at launch: none, or a cookieless counter</td><td>Privacy and any cookie notice</td></tr>
+          <tr><td>7</td><td>Classroom nicknames: consent needed in target countries?</td><td>Needs a professional answer, not mine</td></tr>
+          <tr><td>8</td><td>Safeguarding approach for sessions with children</td><td>Terms and parent reassurance</td></tr>
+          <tr><td>9</td><td>Employer-independence wording</td><td>Disclaimer and About page</td></tr>
+          <tr><td>10</td><td>Confirm no employer-confidential or export-controlled content will be published</td><td>Gate 1 requirement</td></tr>
+        </tbody>
+      </table>
+      <p class="meta">Suggestion: have a lawyer in your base country read Privacy and Terms once, and a child-safeguarding adviser read the children's section, before launch. The milestone allows for that in Phase B.</p>
+    </article>
+  </template>
+
+  <script>
+    const out = document.getElementById("out");
+    const state = { page: "privacy", width: "phone", track: "students", needs: true };
+    const tmpl = id => document.getElementById(id).content.cloneNode(true);
+
+    function render() {
+      out.className = state.width + (state.needs ? "" : " hide-need");
+      out.innerHTML = "";
+      const frame = tmpl("frame");
+      const stage = frame.querySelector("[data-slot=stage]");
+      stage.dataset.track = state.track;
+      stage.querySelector("[data-slot=body]").appendChild(tmpl("p-" + state.page));
+      stage.querySelectorAll("[data-icon]").forEach(el => el.replaceWith(tmpl("icon-info")));
+      out.appendChild(frame);
+      document.querySelectorAll("[data-page]").forEach(b => b.setAttribute("aria-pressed", b.dataset.page === state.page));
+      document.querySelectorAll("[data-width]").forEach(b => b.setAttribute("aria-pressed", b.dataset.width === state.width));
+      document.querySelectorAll("[data-track]").forEach(b => b.setAttribute("aria-pressed", b.dataset.track === state.track));
+    }
+    document.querySelectorAll("[data-page]").forEach(b => b.addEventListener("click", () => { state.page = b.dataset.page; render(); }));
+    document.querySelectorAll("[data-width]").forEach(b => b.addEventListener("click", () => { state.width = b.dataset.width; render(); }));
+    document.querySelectorAll("[data-track]").forEach(b => b.addEventListener("click", () => { state.track = b.dataset.track; render(); }));
+    document.getElementById("needtoggle").addEventListener("click", e => {
+      state.needs = !state.needs;
+      e.currentTarget.setAttribute("aria-pressed", state.needs);
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>
