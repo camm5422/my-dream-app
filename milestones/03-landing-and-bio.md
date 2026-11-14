@@ -5,12 +5,13 @@
 **Goal:** A home page that explains the offer and builds trust.
 
 ## Phase A: Mockup
-- [ ] Create branch `milestone/03-landing-and-bio` from `main`
-- [ ] Build HTML mockups for: home, About/bio, and the three section landing pages (`/kids`, `/students`, `/pros`)
-- [ ] Use placeholder text and a placeholder photo; mark real wording needed from you
-- [ ] Include calls to action ("Book a session", "Try a free activity") and a parent/teacher reassurance block
-- [ ] Show phone and desktop widths
-- [ ] Link from `mockups/index.html`, commit and push
+- [x] Create branch `milestone/03-landing-and-bio` from `main`
+- [x] Build HTML mockups for: home, About/bio, and the three section landing pages (`/kids`, `/students`, `/pros`)
+- [x] Use placeholder text and a placeholder photo; mark real wording needed from you
+- [x] Include calls to action ("Book a session", "Try a free activity") and a parent/teacher reassurance block
+- [x] Show phone and desktop widths
+- [x] Link from `mockups/index.html`
+- [ ] Commit and push the mockup (waiting for your go-ahead)
 
 ## Gate 1: Your review of the mockup
 - [ ] You approve layout and structure
